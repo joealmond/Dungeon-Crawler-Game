@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.data.actors.Skeleton;
 import com.codecool.dungeoncrawl.data.items.Campfire;
 import com.codecool.dungeoncrawl.data.items.Door;
+import com.codecool.dungeoncrawl.data.items.Key;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -52,6 +53,10 @@ public class MapLoader {
                         case 'd':
                             cell.setType(CellType.DOOR);
                             new Door(cell);
+                            break;
+                        case 'k':
+                            cell.setType(CellType.KEY);
+                            new Key(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
