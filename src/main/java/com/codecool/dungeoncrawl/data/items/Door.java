@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.data.Cell;
 
 public class Door extends Item {
   public Door(Cell cell) {
-    super(cell);
+    super(cell, false);
   }
 
   @Override
