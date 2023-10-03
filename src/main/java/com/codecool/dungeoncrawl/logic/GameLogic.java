@@ -32,4 +32,11 @@ public class GameLogic {
     public GameMap getMap() {
         return map;
     }
+
+    public int getPlayerY() {
+        return map.getPlayer().getY();
+    }
+    public int getPlayerX() {
+        return map.getPlayer().getX();
+    }
 }
