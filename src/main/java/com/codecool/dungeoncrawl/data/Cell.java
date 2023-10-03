@@ -25,12 +25,15 @@ public class Cell implements Drawable {
         this.type = type;
     }
 
-    public void setActor(Actor actor) {
-        this.actor = actor;
+    public boolean hasActor() {
+        return actor != null;
     }
-
     public Actor getActor() {
         return actor;
+    }
+  
+    public void setActor(Actor actor) {
+        this.actor = actor;
     }
 
     public Item getItem() {
@@ -39,7 +42,6 @@ public class Cell implements Drawable {
 
     public void setItem(Item item) {
         this.item = item;
-    }
 
     public Cell getNeighbor(int dx, int dy) {
         return gameMap.getCell(x + dx, y + dy);
@@ -48,6 +50,10 @@ public class Cell implements Drawable {
     @Override
     public String getTileName() {
         return type.getTileName();
+    }
+
+    public boolean isPassable() {
+        return type.isPassable();
     }
 
     public int getX() {
