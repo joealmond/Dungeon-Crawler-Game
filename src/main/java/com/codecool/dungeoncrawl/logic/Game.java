@@ -42,9 +42,9 @@ public class Game extends Application {
         this.keyHandlers = Set.of(new Up(), new Down(), new Left(), new Right());
         this.inventory = new Inventory();
         this.logic = new GameLogic();
-        this.ui = new UI(logic, keyHandlers);
-        this.monsterMovementService = new MonsterMovementService(ui,logic);
         this.ui = new UI(logic, keyHandlers, inventory);
+        this.monsterMovementService = new MonsterMovementService(ui,logic);
+
 
         ui.setUpPain(primaryStage);
         primaryStage.setTitle("Dungeon Crawl");

@@ -67,19 +67,4 @@ public class UI {
         }
         mainStage.setHealthLabelText(logic.getPlayerHealth());
     }
-//    public void refresh() {
-//        context.setFill(Color.BLACK);
-//        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        for (int x = 0; x < logic.getMapWidth(); x++) {
-//            for (int y = 0; y < logic.getMapHeight(); y++) {
-//                Cell cell = logic.getCell(x, y);
-//                if (cell.getActor() != null) {
-//                    Tiles.drawTile(context, cell.getActor(), x, y);
-//                } else {
-//                    Tiles.drawTile(context, cell, x, y);
-//                }
-//            }
-//        }
-//        mainStage.setHealthLabelText(logic.getPlayerHealth());
-//    }
 }
