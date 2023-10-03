@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.data.actors;
 
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.Drawable;
+import com.codecool.dungeoncrawl.data.items.Item;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
@@ -15,6 +16,7 @@ public abstract class Actor implements Drawable {
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         allowMovement(nextCell);
+        pickUpItem();
     }
 
     private void allowMovement(Cell nextCell) {
@@ -23,6 +25,10 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         }
+    }
+
+    public void pickUpItem() {
+
     }
 
     public int getHealth() {

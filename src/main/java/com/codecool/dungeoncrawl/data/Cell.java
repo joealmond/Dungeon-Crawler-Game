@@ -28,10 +28,11 @@ public class Cell implements Drawable {
     public boolean hasActor() {
         return actor != null;
     }
+
     public Actor getActor() {
         return actor;
     }
-  
+
     public void setActor(Actor actor) {
         this.actor = actor;
     }
