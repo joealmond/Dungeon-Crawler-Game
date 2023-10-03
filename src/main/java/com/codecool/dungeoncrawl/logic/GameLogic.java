@@ -29,8 +29,14 @@ public class GameLogic {
         return Integer.toString(map.getPlayer().getHealth());
     }
 
-
     public GameMap getMap() {
         return map;
+    }
+
+    public int getPlayerY() {
+        return map.getPlayer().getY();
+    }
+    public int getPlayerX() {
+        return map.getPlayer().getX();
     }
 }
