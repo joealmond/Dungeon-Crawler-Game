@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.actors.Actor;
 import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.ui.UI;
@@ -55,8 +56,8 @@ public class Game extends Application {
         for(Actor monster : monsters){
             List<Integer> moveToCoordinates = findRandomMovementDirection(monster.getX(),monster.getY());
             monster.move(moveToCoordinates.get(0),moveToCoordinates.get(1));
+            ui.refresh();
         }
-        ui.refresh();
     });
 
     private List<Actor> findMonsters(){
@@ -84,7 +85,10 @@ public class Game extends Application {
         );
         List<List<Integer>> resultCoordinates = possibleCells
                 .stream()
-                .filter(coordinate -> logic.getCell(x,y).getNeighbor(coordinate.get(0),coordinate.get(1)).getTileName() == "floor")
+                .filter(coordinate -> {
+                    Cell inspectedCell = logic.getCell(x, y).getNeighbor(coordinate.get(0), coordinate.get(1));
+                    return Objects.equals(inspectedCell.getTileName(), "floor") && inspectedCell.getActor() == null;
+                })
                 .collect(Collectors.toList());
 
         Collections.shuffle(resultCoordinates);
