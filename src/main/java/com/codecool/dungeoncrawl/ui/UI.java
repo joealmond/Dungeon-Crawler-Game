@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.ui;
 
 import com.codecool.dungeoncrawl.data.Cell;
-import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.logic.GameLogic;
 import com.codecool.dungeoncrawl.ui.elements.MainStage;
 import com.codecool.dungeoncrawl.ui.keyeventhandler.KeyHandler;
@@ -13,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Set;
+
+import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT;
 
 public class UI {
     private Canvas canvas;
@@ -48,11 +49,14 @@ public class UI {
         refresh();
     }
 
+
     public void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < logic.getMapWidth(); x++) {
-            for (int y = 0; y < logic.getMapHeight(); y++) {
+        int playerX = logic.getPlayerX();
+        int playerY = logic.getPlayerY();
+        for (int x = Math.max(playerX - LINE_OF_SIGHT, 0); x < Math.min(playerX + LINE_OF_SIGHT, logic.getMapWidth()); x++) {
+            for (int y = Math.max(playerY - LINE_OF_SIGHT, 0); y < Math.min(playerY + LINE_OF_SIGHT, logic.getMapHeight()); y++) {
                 Cell cell = logic.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
@@ -63,4 +67,19 @@ public class UI {
         }
         mainStage.setHealthLabelText(logic.getPlayerHealth());
     }
+//    public void refresh() {
+//        context.setFill(Color.BLACK);
+//        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        for (int x = 0; x < logic.getMapWidth(); x++) {
+//            for (int y = 0; y < logic.getMapHeight(); y++) {
+//                Cell cell = logic.getCell(x, y);
+//                if (cell.getActor() != null) {
+//                    Tiles.drawTile(context, cell.getActor(), x, y);
+//                } else {
+//                    Tiles.drawTile(context, cell, x, y);
+//                }
+//            }
+//        }
+//        mainStage.setHealthLabelText(logic.getPlayerHealth());
+//    }
 }
