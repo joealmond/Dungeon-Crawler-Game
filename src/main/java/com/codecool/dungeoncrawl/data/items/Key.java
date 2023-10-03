@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.data.Cell;
 
 public class Key extends Item {
   public Key(Cell cell) {
-    super(cell);
+    super(cell, true);
   }
 
   @Override

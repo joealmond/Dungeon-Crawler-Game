@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.ui;
 
 import com.codecool.dungeoncrawl.data.Cell;
-import com.codecool.dungeoncrawl.data.CellType;
+import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.logic.GameLogic;
 import com.codecool.dungeoncrawl.ui.elements.MainStage;
 import com.codecool.dungeoncrawl.ui.keyeventhandler.KeyHandler;
@@ -21,16 +21,15 @@ public class UI {
     private MainStage mainStage;
     private GameLogic logic;
     private Set<KeyHandler> keyHandlers;
+    private Inventory inventory;
 
-
-    public UI(GameLogic logic, Set<KeyHandler> keyHandlers) {
-        this.canvas = new Canvas(
-                logic.getMapWidth() * Tiles.TILE_WIDTH,
-                logic.getMapHeight() * Tiles.TILE_WIDTH);
+    public UI(GameLogic logic, Set<KeyHandler> keyHandlers, Inventory inventory) {
+        this.canvas = new Canvas(logic.getMapWidth() * Tiles.TILE_WIDTH, logic.getMapHeight() * Tiles.TILE_WIDTH);
         this.logic = logic;
         this.context = canvas.getGraphicsContext2D();
         this.mainStage = new MainStage(canvas);
         this.keyHandlers = keyHandlers;
+        this.inventory = inventory;
     }
 
     public void setUpPain(Stage primaryStage) {
