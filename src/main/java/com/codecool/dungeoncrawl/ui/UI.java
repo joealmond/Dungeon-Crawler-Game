@@ -39,6 +39,7 @@ public class UI {
         primaryStage.setScene(scene);
         logic.setup();
         refresh();
+
         scene.setOnKeyPressed(this::onKeyPressed);
     }
 

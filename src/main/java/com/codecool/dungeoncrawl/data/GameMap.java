@@ -23,6 +23,7 @@ public class GameMap {
     }
 
     public Cell getCell(int x, int y) {
+
         return cells[x][y];
     }
 
