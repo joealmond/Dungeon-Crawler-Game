@@ -33,7 +33,8 @@ public class Tiles {
         tileMap.put("river-straight",new Tile(8,4));
         tileMap.put("river-turn",new Tile(9,4));
         tileMap.put("fire",new Tile(15,11));
-        tileMap.put("campfire",new Tile(14,11));
+        tileMap.put("campfire",new Tile(14,10));
+        tileMap.put("campfire_alt",new Tile(15,10));
         tileMap.put("door",new Tile(9,11));
         tileMap.put("key",new Tile(16,23));
         tileMap.put("boss",new Tile(30,6));
