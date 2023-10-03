@@ -54,7 +54,14 @@ public class Game extends Application {
         List<Actor> monsters = findMonsters();
 
         for(Actor monster : monsters){
-            List<Integer> moveToCoordinates = findRandomMovementDirection(monster.getX(),monster.getY());
+            List<Integer> moveToCoordinates;
+
+            if(isPlayerNearby(3,monster.getX(),monster.getY())){
+                moveToCoordinates = getDirectionToPlayer(monster.getX(),monster.getY());
+            } else {
+                moveToCoordinates = findRandomMovementDirection(monster.getX(),monster.getY());
+            }
+
             monster.move(moveToCoordinates.get(0),moveToCoordinates.get(1));
             ui.refresh();
         }
@@ -87,11 +94,60 @@ public class Game extends Application {
                 .stream()
                 .filter(coordinate -> {
                     Cell inspectedCell = logic.getCell(x, y).getNeighbor(coordinate.get(0), coordinate.get(1));
-                    return Objects.equals(inspectedCell.getTileName(), "floor") && inspectedCell.getActor() == null;
+                    return isValidMoveOption(inspectedCell.getX(), inspectedCell.getY());
                 })
                 .collect(Collectors.toList());
 
         Collections.shuffle(resultCoordinates);
         return resultCoordinates.get(0) != null ? resultCoordinates.get(0) : List.of(0,0);
+    }
+
+    private boolean isPlayerNearby(int detectionRadius, int x, int y){
+        boolean result = false;
+        for(int dx = (x+detectionRadius) * -1; dx < (x + detectionRadius); dx++){
+            for(int dy = (y+detectionRadius) * -1; dy < (y + detectionRadius);dy++){
+                if(isValidMoveOption(x + dx,y + dy)){
+                    if((logic.getCell(x,y).getNeighbor(dx,dy).getActor()) instanceof  Player){
+                        System.out.println("Found");
+                        result = true;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    private List<Integer> getDirectionToPlayer(int x, int y){
+        System.out.println("Player is in scope");
+       Player player = logic.getMap().getPlayer();
+       int playerX = player.getX();
+       int playerY = player.getY();
+       int moveX = 0;
+       int moveY = 0;
+
+       if(playerX > x){
+           moveX = 1;
+       } else if(playerX < x){
+           moveX = -1;
+       }
+
+        if(playerY > y){
+            moveY = 1;
+        } else if(playerY < y){
+            moveY = -1;
+        }
+        if(isValidMoveOption(x+moveX,y+moveY)){
+            System.out.println("Moving to player");
+            return List.of(moveX,moveY);
+        } else {
+            return findRandomMovementDirection(x,y);
+        }
+
+    }
+    private boolean isValidMoveOption(int x, int y){
+        if(x < 0 || x >= logic.getMapWidth() - 1 ) return false;
+        if(y < 0 || y >= logic.getMapHeight() - 1) return false;
+        Cell inspectedCell = logic.getCell(x,y);
+        boolean cellIsValidType = Objects.equals(inspectedCell.getTileName(), "floor") || Objects.equals(inspectedCell.getTileName(),"empty");
+        return  cellIsValidType && inspectedCell.getActor() == null;
     }
 }
