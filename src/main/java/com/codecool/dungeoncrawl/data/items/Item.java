@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.data.items;
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.Drawable;
 
+import java.util.Optional;
+
 public abstract class Item implements Drawable {
   private Cell cell;
   private final boolean isPickable;

@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.data.items.Item;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Player extends Actor {
@@ -45,9 +46,18 @@ public class Player extends Actor {
         interactWithPlayer(nextCell);
     }
 
+//    public <T> switchItem(String tileName) {
+//        switch (tileName) {
+//            case "campfire":
+//                return setCurrentHealth(15);
+//                break;
+//
+//        }
+//    }
+
     public void interactWithPlayer(Cell nextCell) {
         if (this.getCell().hasItem()) {
-            this.getCell().getItem().interactWithPlayer(nextCell);
+            this.getCell().getItem().interactWithPlayer(switchItem(this.getCell().getItem().getTileName()));
         }
 
         handleCampfireInteraction(nextCell);

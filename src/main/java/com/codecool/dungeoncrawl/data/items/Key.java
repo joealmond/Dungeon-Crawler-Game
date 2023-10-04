@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.data.items;
 
 import com.codecool.dungeoncrawl.data.Cell;
 
+import java.util.Optional;
+
 public class Key extends Item {
   public Key(Cell cell) {
     super(cell, true);
@@ -13,7 +15,7 @@ public class Key extends Item {
   }
 
   @Override
-  public <T> void interactWithPlayer(T cell) {
+  public <T> void interactWithPlayer(Optional<T> cell) {
     System.out.println(cell);
   }
 }

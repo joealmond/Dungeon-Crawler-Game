@@ -50,4 +50,8 @@ public class GameLogic {
     public void addToPlayerInventory(Item item) {
         map.getPlayer().addToInventory(item);
     }
+
+    public void interactions() {
+        map.getPlayer().interactWithPlayer();
+    }
 }
