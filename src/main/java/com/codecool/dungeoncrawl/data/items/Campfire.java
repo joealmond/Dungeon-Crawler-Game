@@ -7,7 +7,8 @@ public class Campfire extends Item {
     super(cell, false);
   }
 
+  @Override
   public String getTileName() {
-    return null;
+    return "campfire";
   }
 }
