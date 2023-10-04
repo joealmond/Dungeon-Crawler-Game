@@ -6,7 +6,8 @@ public enum CellType {
     WALL("wall", false),
     CAMPFIRE("campfire", false),
     DOOR("door", false),
-    KEY("key", true);
+    KEY("key", true),
+    SLASH("slash",false);
 
     private final String tileName;
     private final boolean isPassable;

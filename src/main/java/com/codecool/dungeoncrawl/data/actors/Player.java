@@ -4,11 +4,18 @@ import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.data.items.Item;
+import com.codecool.dungeoncrawl.logic.AnimationService;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class Player extends Actor {
     private final Inventory inventory;
+    private AnimationService animationService;
 
     public Player(Cell cell) {
         super(cell);
@@ -51,5 +58,13 @@ public class Player extends Actor {
 //            System.out.println("door found");
 //
 //        }
+    }
+
+    public void attack(int x, int y){
+        Cell cellToAttack = cell.getNeighbor(x,y);
+        animationService.playSlashAnimation(cellToAttack);
+    }
+    public void setAnimationService(AnimationService animationService){
+        this.animationService =  animationService;
     }
 }

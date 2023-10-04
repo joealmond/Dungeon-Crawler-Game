@@ -20,7 +20,7 @@ public class Game extends Application {
     private UI ui;
     private GameLogic logic;
     private Set<KeyHandler> keyHandlers;
-    private MonsterMovementService monsterMovementService;
+    private AnimationService animationService;
 
     public static void main(String[] args) {
         launch(args);
@@ -31,11 +31,12 @@ public class Game extends Application {
         this.keyHandlers = Set.of(new Up(), new Down(), new Left(), new Right(), new W(), new S(), new A(), new D());
         this.logic = new GameLogic();
         this.ui = new UI(logic, keyHandlers);
-        this.monsterMovementService = new MonsterMovementService(ui,logic);
+        this.animationService = new AnimationService(ui,logic);
 
+        logic.getPlayer().setAnimationService(animationService);
         ui.setUpPain(primaryStage);
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
-        monsterMovementService.startMonsterMovement();
+        animationService.startMonsterMovement();
     }
 }

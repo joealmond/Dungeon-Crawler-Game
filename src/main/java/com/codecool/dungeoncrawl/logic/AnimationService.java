@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.data.Cell;
+import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.actors.Actor;
 import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.data.gamesetup.Constants;
@@ -13,13 +14,13 @@ import javafx.util.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MonsterMovementService {
+public class AnimationService {
     private UI ui;
     private GameLogic logic;
     private Duration movementDuration = Duration.seconds(1);
     private KeyFrame moveMonsters = new KeyFrame(movementDuration, actionEvent ->moveMonstersActionEvent());
 
-    public MonsterMovementService(UI ui, GameLogic logic) {
+    public AnimationService(UI ui, GameLogic logic) {
         this.ui = ui;
         this.logic = logic;
     }
@@ -30,6 +31,22 @@ public class MonsterMovementService {
         timeline.setCycleCount(Animation.INDEFINITE);
 
         timeline.playFromStart();
+    }
+    public void playSlashAnimation(Cell cell){
+        CellType originalCellType = cell.getType();
+
+        Timeline slashAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0), event -> {
+                    cell.setType(CellType.SLASH);
+                    ui.refresh();
+                }),
+                new KeyFrame(Duration.seconds(0.2), event -> {
+                    cell.setType(originalCellType);
+                    ui.refresh();
+                })
+        );
+        slashAnimation.setCycleCount(1);
+        slashAnimation.play();
     }
 
     private void moveMonstersActionEvent() {
