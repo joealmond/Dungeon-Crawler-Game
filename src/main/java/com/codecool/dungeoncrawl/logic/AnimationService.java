@@ -40,8 +40,23 @@ public class AnimationService {
                     cell.setType(CellType.SLASH);
                     ui.refresh();
                 }),
-                new KeyFrame(Duration.seconds(0.2), event -> {
+                new KeyFrame(Duration.seconds(0.1), event -> {
                     cell.setType(originalCellType);
+                    ui.refresh();
+                })
+        );
+        slashAnimation.setCycleCount(1);
+        slashAnimation.play();
+    }
+
+    public void playDeathAnimation(Cell cell){
+        Timeline slashAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), event -> {
+                    cell.setType(CellType.CORPSE);
+                    ui.refresh();
+                }),
+                new KeyFrame(Duration.seconds(2), event -> {
+                    cell.setType(CellType.GRAVE);
                     ui.refresh();
                 })
         );

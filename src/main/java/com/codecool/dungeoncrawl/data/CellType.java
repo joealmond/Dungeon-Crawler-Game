@@ -7,7 +7,9 @@ public enum CellType {
     CAMPFIRE("campfire", false),
     DOOR("door", false),
     KEY("key", true),
-    SLASH("slash",false);
+    SLASH("slash",false),
+    CORPSE("corpse",true),
+    GRAVE("grave",true);
 
     private final String tileName;
     private final boolean isPassable;

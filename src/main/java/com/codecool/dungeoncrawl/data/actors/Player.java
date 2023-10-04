@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Player extends Actor {
     private static final int MAX_HEALTH = 15;
     private final Inventory inventory;
-    private AnimationService animationService;
+
 
     public Player(Cell cell) {
         super(cell, calculateStartHealth());
@@ -86,7 +86,5 @@ public class Player extends Actor {
             System.out.println(enemy.getCurrentHealth());
         }
     }
-    public void setAnimationService(AnimationService animationService){
-        this.animationService =  animationService;
-    }
+
 }

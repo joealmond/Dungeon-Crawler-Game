@@ -33,7 +33,8 @@ public class Game extends Application {
         this.ui = new UI(logic, keyHandlers);
         this.animationService = new AnimationService(ui,logic);
 
-        logic.getPlayer().setAnimationService(animationService);
+        logic.getActors().forEach(actor -> actor.setAnimationService(animationService));
+
         ui.setUpPain(primaryStage);
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
