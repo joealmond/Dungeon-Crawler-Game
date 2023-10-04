@@ -5,7 +5,9 @@ import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.data.items.Item;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Player extends Actor {
     private static final int MAX_HEALTH = 15;
@@ -47,8 +49,10 @@ public class Player extends Actor {
         if (this.getCell().hasItem()) {
             this.getCell().getItem().interactWithPlayer(nextCell);
         }
-//        handleCampfireInteraction(nextCell);
-//        handleGoldenKeyInteraction(nextCell);
+
+        handleCampfireInteraction(nextCell);
+        handleGoldenKeyInteraction(nextCell);
+        handleDoorInteraction(nextCell);
     }
 
     private void handleCampfireInteraction(Cell nextCell) {
@@ -66,7 +70,18 @@ public class Player extends Actor {
         }
     }
 
+    private void handleDoorInteraction(Cell nextCell) {
+        if (checkIfNextCellHasGivenItem(nextCell, "door") && checkItemInInventory("key")) {
+            nextCell.getItem().getCell().setType(CellType.OPENED_DOOR);
+            System.out.println("you shall pass!");
+        }
+    }
+
     private boolean checkIfNextCellHasGivenItem(Cell nextCell, String nameOfItem) {
         return nextCell.hasItem() && Objects.equals(nextCell.getItem().getTileName(), nameOfItem);
+    }
+
+    private boolean checkItemInInventory(String nameOfItem) {
+        return inventory.getItems().stream().filter(item -> item.getTileName() == nameOfItem).collect(Collectors.toList()).size() == 1;
     }
 }

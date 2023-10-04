@@ -13,7 +13,7 @@ public class Key extends Item {
   }
 
   @Override
-  public <T> void interactWithPlayer(T health) {
-    System.out.println(health);
+  public <T> void interactWithPlayer(T cell) {
+    System.out.println(cell);
   }
 }

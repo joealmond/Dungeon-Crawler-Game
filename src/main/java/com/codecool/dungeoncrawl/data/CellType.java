@@ -6,6 +6,7 @@ public enum CellType {
     WALL("wall", false),
     CAMPFIRE("campfire", false),
     DOOR("door", false),
+    OPENED_DOOR("opened-door", true),
     KEY("key", true);
 
     private final String tileName;

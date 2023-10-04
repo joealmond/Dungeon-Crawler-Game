@@ -13,7 +13,7 @@ public class Campfire extends Item {
   }
 
   @Override
-  public <T> void interactWithPlayer(T health) {
-    System.out.println("bal");
+  public <T> void interactWithPlayer(T cell) {
+    System.out.println(cell);
   }
 }

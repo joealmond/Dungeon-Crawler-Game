@@ -13,7 +13,7 @@ public class Door extends Item {
   }
 
   @Override
-  public <T> void interactWithPlayer(T H) {
-    System.out.printf("%s", H);
+  public <T> void interactWithPlayer(T cell) {
+    System.out.println(cell);
   }
 }

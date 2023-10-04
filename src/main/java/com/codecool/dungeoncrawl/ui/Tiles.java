@@ -36,6 +36,7 @@ public class Tiles {
         tileMap.put("campfire",new Tile(14,10));
         tileMap.put("campfire_alt",new Tile(15,10));
         tileMap.put("door",new Tile(9,11));
+        tileMap.put("opened-door",new Tile(8,10));
         tileMap.put("key",new Tile(16,23));
         tileMap.put("boss",new Tile(30,6));
         tileMap.put("torch",new Tile(10,25));
