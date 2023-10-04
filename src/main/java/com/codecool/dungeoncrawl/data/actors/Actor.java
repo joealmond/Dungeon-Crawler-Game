@@ -31,6 +31,7 @@ public abstract class Actor implements Drawable {
 
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
+        animationService.playActorGetHurtAnimation(cell);
         if(currentHealth <= 0){
             cell.setActor(null);
             animationService.playDeathAnimation(cell);

@@ -50,7 +50,7 @@ public class AnimationService {
     }
 
     public void playDeathAnimation(Cell cell){
-        Timeline slashAnimation = new Timeline(
+        Timeline deathAnimation = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), event -> {
                     cell.setType(CellType.CORPSE);
                     ui.refresh();
@@ -60,8 +60,29 @@ public class AnimationService {
                     ui.refresh();
                 })
         );
-        slashAnimation.setCycleCount(1);
-        slashAnimation.play();
+        deathAnimation.setCycleCount(1);
+        deathAnimation.play();
+    }
+    public void playActorGetHurtAnimation(Cell cell){
+        Actor actorOnCell = cell.getActor();
+
+        Timeline hurtAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0), event -> {;
+                    cell.setActor(null);
+                    cell.setType(CellType.HURT_ACTOR);
+                    ui.refresh();
+                }),
+                new KeyFrame(Duration.seconds(0.1), event -> {
+                    if(actorOnCell.getCurrentHealth() > 0){
+                        cell.setActor(actorOnCell);
+                        ui.refresh();
+                    } else {
+                        playDeathAnimation(cell);
+                    }
+                })
+        );
+        hurtAnimation.setCycleCount(1);
+        hurtAnimation.play();
     }
 
     private void moveMonstersActionEvent() {
