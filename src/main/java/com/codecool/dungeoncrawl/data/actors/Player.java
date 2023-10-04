@@ -4,8 +4,18 @@ import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.data.items.Item;
+import com.codecool.dungeoncrawl.logic.AnimationService;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+>>>>>>> development
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,6 +23,7 @@ import java.util.stream.Collectors;
 public class Player extends Actor {
     private static final int MAX_HEALTH = 15;
     private final Inventory inventory;
+
 
     public Player(Cell cell) {
         super(cell, calculateStartHealth());
@@ -57,7 +68,7 @@ public class Player extends Actor {
 
     public void interactWithPlayer(Cell nextCell) {
         if (this.getCell().hasItem()) {
-            this.getCell().getItem().interactWithPlayer(switchItem(this.getCell().getItem().getTileName()));
+//            this.getCell().getItem().interactWithPlayer(switchItem(this.getCell().getItem().getTileName()));
         }
 
         handleCampfireInteraction(nextCell);
@@ -91,7 +102,21 @@ public class Player extends Actor {
         return nextCell.hasItem() && Objects.equals(nextCell.getItem().getTileName(), nameOfItem);
     }
 
+
     private boolean checkItemInInventory(String nameOfItem) {
         return inventory.getItems().stream().filter(item -> item.getTileName() == nameOfItem).collect(Collectors.toList()).size() == 1;
+    }
+
+    public void attack(int x, int y){
+        Cell cellToAttack = cell.getNeighbor(x,y);
+        animationService.playSlashAnimation(cellToAttack);
+
+        if(cellToAttack.hasActor()){
+            Actor enemy = cellToAttack.getActor();
+            int enemyHealth = enemy.getCurrentHealth();
+
+            enemy.setCurrentHealth(enemyHealth - 1);
+            System.out.println(enemy.getCurrentHealth());
+        }
     }
 }
