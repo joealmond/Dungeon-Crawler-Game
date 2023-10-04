@@ -72,4 +72,18 @@ public class GameLogic {
 
         return allActors;
     }
+    public List<Item> getItems() {
+        List<Item> allItems = new ArrayList<>();
+        for(int x = 0; x < getMapWidth() -1 ; x++){
+            for(int y = 0; y < getMapHeight() - 1; y++){
+                Optional<Item> currentCell = Optional.ofNullable(getCell(x, y).getItem());
+                currentCell.ifPresent(allItems::add);
+            }
+        }
+
+        return allItems;
+    }
+    public void generateNewMap(){
+        this.map = MapGenerator.generateRandomMap();
+    }
 }

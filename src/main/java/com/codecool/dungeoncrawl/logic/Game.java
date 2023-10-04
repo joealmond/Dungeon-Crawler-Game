@@ -34,10 +34,13 @@ public class Game extends Application {
         this.animationService = new AnimationService(ui,logic);
 
         logic.getActors().forEach(actor -> actor.setAnimationService(animationService));
+        logic.getItems().forEach(item -> item.setAnimationService(animationService));
+        logic.getItems().forEach(item -> item.setLogic(logic));
 
         ui.setUpPain(primaryStage);
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+
         animationService.startMonsterMovement();
     }
 }

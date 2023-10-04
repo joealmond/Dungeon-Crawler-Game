@@ -23,6 +23,10 @@ public class Door extends Item {
 
     if (isItemInInventory(player.getInventory())) {
       cell.getItem().getCell().setType(CellType.OPENED_DOOR);
+      logic.generateNewMap();
+      logic.getActors().forEach(actor -> actor.setAnimationService(animationService));
+      logic.getItems().forEach(item -> item.setAnimationService(animationService));
+      logic.getItems().forEach(item -> item.setLogic(logic));
     }
   }
 

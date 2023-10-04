@@ -64,6 +64,26 @@ public class AnimationService {
         deathAnimation.setCycleCount(1);
         deathAnimation.play();
     }
+    public void setWallToCrumbling(Cell cell){
+        Timeline wallAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), event -> {
+                    cell.setType(CellType.CRUMBLING_WALL);
+                    ui.refresh();
+                })
+        );
+        wallAnimation.setCycleCount(1);
+        wallAnimation.play();
+    }
+    public void resetTileToFloor(Cell cell) {
+        Timeline resetAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), event -> {
+                    cell.setType(CellType.FLOOR);
+                    ui.refresh();
+                })
+        );
+        resetAnimation.setCycleCount(1);
+        resetAnimation.play();
+    }
     public void playActorGetHurtAnimation(Cell cell){
         Actor actorOnCell = cell.getActor();
 
