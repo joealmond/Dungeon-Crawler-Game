@@ -28,26 +28,29 @@ public class Tiles {
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("player", new Tile(27, 0));
         tileMap.put("skeleton", new Tile(29, 6));
-        tileMap.put("sword",new Tile(3,29));
-        tileMap.put("wateringcan",new Tile(14,25));
-        tileMap.put("river-straight",new Tile(8,4));
-        tileMap.put("river-turn",new Tile(9,4));
-        tileMap.put("fire",new Tile(15,11));
-        tileMap.put("campfire",new Tile(14,10));
-        tileMap.put("campfire_alt",new Tile(15,10));
-        tileMap.put("door",new Tile(9,11));
-        tileMap.put("key",new Tile(16,23));
-        tileMap.put("boss",new Tile(30,6));
-        tileMap.put("torch",new Tile(10,25));
-        tileMap.put("diamond",new Tile(23,4));
-        tileMap.put("slash",new Tile(24,11));
-        tileMap.put("potion", new Tile(17,25));
+        tileMap.put("sword", new Tile(3,29));
+        tileMap.put("watering-can", new Tile(14,25));
+        tileMap.put("river-straight", new Tile(8,4));
+        tileMap.put("river-turn", new Tile(9,4));
+        tileMap.put("fire", new Tile(15,11));
+        tileMap.put("campfire", new Tile(14,10));
+        tileMap.put("campfire_alt", new Tile(15,10));
+        tileMap.put("door", new Tile(9,11));
+        tileMap.put("opened-door", new Tile(8,10));
+        tileMap.put("key", new Tile(16,23));
+        tileMap.put("boss", new Tile(30,6));
+        tileMap.put("torch", new Tile(10,25));
+        tileMap.put("diamond", new Tile(23,4));
+        tileMap.put("slash", new Tile(24,11));
+        tileMap.put("health-potion", new Tile(16,30));
         tileMap.put("bread", new Tile(15,27));
+        tileMap.put("corpse", new Tile(0,15));
+        tileMap.put("grave", new Tile(1,14));
+        tileMap.put("hurt-actor", new Tile(13,12));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
         Tile tile = tileMap.get(d.getTileName());
-        context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
-                x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+        context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
 }

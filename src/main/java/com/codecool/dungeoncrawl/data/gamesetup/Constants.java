@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.data.gamesetup;
 
 public class Constants {
-    public static final int LINE_OF_SIGHT = 5;
+    public static final int LINE_OF_SIGHT = 4;
+    public static final int LINE_OF_SIGHT_WITH_TORCH = 6;
     public static final int NPC_DETECTION_RADIUS = 3;
 }

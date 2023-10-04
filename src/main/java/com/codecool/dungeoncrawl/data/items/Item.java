@@ -2,9 +2,10 @@ package com.codecool.dungeoncrawl.data.items;
 
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.Drawable;
+import com.codecool.dungeoncrawl.data.actors.Player;
 
 public abstract class Item implements Drawable {
-  private Cell cell;
+  protected Cell cell;
   private final boolean isPickable;
 
   public Item(Cell cell, boolean isPickable) {
@@ -25,5 +26,5 @@ public abstract class Item implements Drawable {
     return isPickable;
   }
 
-  public abstract <T> void interactWithPlayer(T stuff);
+  public abstract void interactWithPlayer(Player player);
 }
