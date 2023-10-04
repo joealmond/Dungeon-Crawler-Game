@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.GameMap;
+import com.codecool.dungeoncrawl.data.inventory.Inventory;
+import com.codecool.dungeoncrawl.data.items.Item;
 
 public class GameLogic {
     private GameMap map;
@@ -36,7 +38,21 @@ public class GameLogic {
     public int getPlayerY() {
         return map.getPlayer().getY();
     }
+
     public int getPlayerX() {
         return map.getPlayer().getX();
+    }
+
+    public Inventory getPlayerInventory() {
+        return map.getPlayer().getInventory();
+    }
+
+    public void addToPlayerInventory(Item item) {
+        map.getPlayer().addToInventory(item);
+    }
+
+    public void pickUpItemIfPossible() {
+        map.getPlayer().pickUpItemIfPossible();
+        map.getPlayer().checkIfHasKeyAtDoor();
     }
 }

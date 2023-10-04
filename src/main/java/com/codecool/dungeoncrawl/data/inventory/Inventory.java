@@ -19,4 +19,9 @@ public class Inventory {
   public void addItem(Item item) {
     items.add(item);
   }
+
+  @Override
+  public String toString() {
+      return String.format("%s", items);
+  }
 }

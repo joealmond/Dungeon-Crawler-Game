@@ -7,6 +7,14 @@ public class Skeleton extends Actor {
         super(cell);
     }
 
+    public void allowMovement(Cell nextCell) {
+        if (nextCell.isPassable() && !nextCell.hasActor()) {
+            cell.setActor(null);
+            nextCell.setActor(this);
+            cell = nextCell;
+        }
+    }
+
     @Override
     public String getTileName() {
         return "skeleton";
