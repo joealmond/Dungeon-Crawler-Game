@@ -50,8 +50,8 @@ public class Player extends Actor {
         }
     }
 
-    public void attack(int x, int y){
-        Cell cellToAttack = cell.getNeighbor(x,y);
+    public void attack(int x, int y) {
+        Cell cellToAttack = cell.getNeighbor(x, y);
         animationService.playSlashAnimation(cellToAttack);
 
         if(cellToAttack.hasActor()){
@@ -59,7 +59,6 @@ public class Player extends Actor {
             int enemyHealth = enemy.getCurrentHealth();
 
             enemy.setCurrentHealth(enemyHealth - 1);
-            System.out.println(enemy.getCurrentHealth());
         }
     }
 }
