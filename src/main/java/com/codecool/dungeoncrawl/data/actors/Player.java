@@ -77,6 +77,14 @@ public class Player extends Actor {
     public void attack(int x, int y){
         Cell cellToAttack = cell.getNeighbor(x,y);
         animationService.playSlashAnimation(cellToAttack);
+
+        if(cellToAttack.hasActor()){
+            Actor enemy = cellToAttack.getActor();
+            int enemyHealth = enemy.getCurrentHealth();
+
+            enemy.setCurrentHealth(enemyHealth - 1);
+            System.out.println(enemy.getCurrentHealth());
+        }
     }
     public void setAnimationService(AnimationService animationService){
         this.animationService =  animationService;
