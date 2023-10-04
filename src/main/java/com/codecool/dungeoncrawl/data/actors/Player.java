@@ -44,16 +44,15 @@ public class Player extends Actor {
     }
 
     public void interactWithPlayer(Cell nextCell) {
+//        if (this.getCell().hasItem()) {
+//            this.getCell().getItem().interactWithPlayer(nextCell, currentHealth);
+//        }
         handleCampfireInteraction(nextCell);
         handleGoldenKeyInteraction(nextCell);
     }
 
     private void handleCampfireInteraction(Cell nextCell) {
-        if (checkIfNextCellHasGivenItem(nextCell, "campfire")) {
-            if (this.getCurrentHealth() < Player.MAX_HEALTH) {
-                this.currentHealth += 1;
-            }
-        }
+
     }
 
     private void handleGoldenKeyInteraction(Cell nextCell) {
