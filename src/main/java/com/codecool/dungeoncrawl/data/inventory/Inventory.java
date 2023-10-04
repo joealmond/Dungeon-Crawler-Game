@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.data.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Inventory {
   private final List<Item> items;
@@ -18,6 +19,12 @@ public class Inventory {
 
   public void addItem(Item item) {
     items.add(item);
+  }
+
+  public boolean hasTorch() {
+    return items.stream()
+      .filter((item) -> Objects.equals(item.getTileName(), "torch"))
+      .count() == 1;
   }
 
   @Override

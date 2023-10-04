@@ -19,8 +19,6 @@ public class Door extends Item {
 
   @Override
   public void interactWithPlayer(Player player) {
-    System.out.println("Entered door");
-
     if (isItemInInventory(player.getInventory())) {
       cell.getItem().getCell().setType(CellType.OPENED_DOOR);
     }
