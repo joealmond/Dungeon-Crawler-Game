@@ -29,7 +29,7 @@ public class GameLogic {
     }
 
     public String getPlayerHealth() {
-        return Integer.toString(map.getPlayer().getHealth());
+        return Integer.toString(map.getPlayer().getCurrentHealth());
     }
 
     public GameMap getMap() {
@@ -50,11 +50,6 @@ public class GameLogic {
 
     public void addToPlayerInventory(Item item) {
         map.getPlayer().addToInventory(item);
-    }
-
-    public void pickUpItemIfPossible() {
-        map.getPlayer().pickUpItemIfPossible();
-        map.getPlayer().checkIfHasKeyAtDoor();
     }
     public Player getPlayer(){
         return map.getPlayer();

@@ -11,4 +11,9 @@ public class Door extends Item {
   public String getTileName() {
     return "door";
   }
+
+  @Override
+  public <T> void interactWithPlayer(T H) {
+    System.out.printf("%s", H);
+  }
 }
