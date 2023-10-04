@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 public class Door extends Item {
   public Door(Cell cell) {
@@ -27,6 +27,9 @@ public class Door extends Item {
   }
 
   private boolean isItemInInventory(Inventory inventory) {
-    return inventory.getItems().stream().filter(item -> item.getTileName() == "key").collect(Collectors.toList()).size() == 1;
+    return inventory.getItems()
+      .stream()
+      .filter(item -> Objects.equals(item.getTileName(), "key"))
+      .count() == 1;
   }
 }

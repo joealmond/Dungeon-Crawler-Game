@@ -14,7 +14,7 @@ public class Player extends Actor {
     }
 
     public static int calculateStartHealth() {
-        return Player.MAX_HEALTH;
+        return MAX_HEALTH;
     }
 
     @Override
@@ -30,8 +30,12 @@ public class Player extends Actor {
         return inventory;
     }
 
-    public void addToInventory(Item item) {
+    public void addItemToInventory(Item item) {
         inventory.addItem(item);
+    }
+
+    public void removeItemFromInventory(Item item) {
+        inventory.getItems().remove(item);
     }
 
     public void allowMovement(Cell nextCell) {
@@ -50,16 +54,15 @@ public class Player extends Actor {
         }
     }
 
-    public void attack(int x, int y){
-        Cell cellToAttack = cell.getNeighbor(x,y);
+    public void attack(int x, int y) {
+        Cell cellToAttack = cell.getNeighbor(x, y);
         animationService.playSlashAnimation(cellToAttack);
 
-        if(cellToAttack.hasActor()){
+        if (cellToAttack.hasActor()) {
             Actor enemy = cellToAttack.getActor();
             int enemyHealth = enemy.getCurrentHealth();
 
             enemy.setCurrentHealth(enemyHealth - 1);
-            System.out.println(enemy.getCurrentHealth());
         }
     }
 }
