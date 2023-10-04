@@ -16,7 +16,7 @@ public class Key extends Item {
 
   @Override
   public void interactWithPlayer(Player player) {
-    player.addToInventory(this);
+    player.addItemToInventory(this);
     cell.setItem(null);
     cell.setType(CellType.FLOOR);
   }

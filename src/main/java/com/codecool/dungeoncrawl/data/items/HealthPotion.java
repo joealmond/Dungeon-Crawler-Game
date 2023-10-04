@@ -18,12 +18,20 @@ public class HealthPotion extends Item {
 
   @Override
   public void interactWithPlayer(Player player) {
-    player.addToInventory(this);
+    player.addItemToInventory(this);
     cell.setItem(null);
     cell.setType(CellType.FLOOR);
   }
 
   public void usePotion(Player player) {
-    System.out.println("potion");
+    int amountOfMissingHp = player.getMaxHealth() - player.getCurrentHealth();
+
+    if (amountOfMissingHp <= AMOUNT_OF_HEALING) {
+      player.setCurrentHealth(player.getCurrentHealth() + amountOfMissingHp);
+    } else {
+      player.setCurrentHealth(player.getCurrentHealth() + AMOUNT_OF_HEALING);
+    }
+
+    player.removeItemFromInventory(this);
   }
 }
