@@ -24,4 +24,6 @@ public abstract class Item implements Drawable {
   public boolean isPickable() {
     return isPickable;
   }
+
+  public abstract <T> void interactWithPlayer(T stuff);
 }

@@ -11,4 +11,9 @@ public class Key extends Item {
   public String getTileName() {
     return "key";
   }
+
+  @Override
+  public <T> void interactWithPlayer(T health) {
+    System.out.println(health);
+  }
 }
