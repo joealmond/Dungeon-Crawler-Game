@@ -1,29 +1,12 @@
 package com.codecool.dungeoncrawl.data.actors;
 
 import com.codecool.dungeoncrawl.data.Cell;
-import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.data.items.Item;
-import com.codecool.dungeoncrawl.logic.AnimationService;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-
-<<<<<<< HEAD
-import java.util.List;
-=======
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
->>>>>>> development
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class Player extends Actor {
     private static final int MAX_HEALTH = 15;
     private final Inventory inventory;
-
 
     public Player(Cell cell) {
         super(cell, calculateStartHealth());
@@ -37,6 +20,10 @@ public class Player extends Actor {
     @Override
     public String getTileName() {
         return "player";
+    }
+
+    public int getMaxHealth() {
+        return MAX_HEALTH;
     }
 
     public Inventory getInventory() {
@@ -57,54 +44,10 @@ public class Player extends Actor {
         interactWithPlayer(nextCell);
     }
 
-//    public <T> switchItem(String tileName) {
-//        switch (tileName) {
-//            case "campfire":
-//                return setCurrentHealth(15);
-//                break;
-//
-//        }
-//    }
-
     public void interactWithPlayer(Cell nextCell) {
-        if (this.getCell().hasItem()) {
-//            this.getCell().getItem().interactWithPlayer(switchItem(this.getCell().getItem().getTileName()));
+        if (nextCell.hasItem()) {
+            nextCell.getItem().interactWithPlayer(this);
         }
-
-        handleCampfireInteraction(nextCell);
-        handleGoldenKeyInteraction(nextCell);
-        handleDoorInteraction(nextCell);
-    }
-
-    private void handleCampfireInteraction(Cell nextCell) {
-        if (checkIfNextCellHasGivenItem(nextCell, "campfire")) {
-            if (this.getCurrentHealth() < Player.MAX_HEALTH) {
-                this.currentHealth += 1;
-            }
-        }
-    }
-
-    private void handleGoldenKeyInteraction(Cell nextCell) {
-        if (checkIfNextCellHasGivenItem(nextCell, "key")) {
-            inventory.addItem(this.getCell().getItem());
-            this.getCell().setType(CellType.FLOOR);
-        }
-    }
-
-    private void handleDoorInteraction(Cell nextCell) {
-        if (checkIfNextCellHasGivenItem(nextCell, "door") && checkItemInInventory("key")) {
-            nextCell.getItem().getCell().setType(CellType.OPENED_DOOR);
-            System.out.println("you shall pass!");
-        }
-    }
-
-    private boolean checkIfNextCellHasGivenItem(Cell nextCell, String nameOfItem) {
-        return nextCell.hasItem() && Objects.equals(nextCell.getItem().getTileName(), nameOfItem);
-    }
-
-
-    private boolean checkItemInInventory(String nameOfItem) {
-        return inventory.getItems().stream().filter(item -> item.getTileName() == nameOfItem).collect(Collectors.toList()).size() == 1;
     }
 
     public void attack(int x, int y){

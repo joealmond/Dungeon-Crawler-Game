@@ -57,15 +57,11 @@ public class GameLogic {
         map.getPlayer().addToInventory(item);
     }
 
-    public void interactions() {
-//        map.getPlayer().interactWithPlayer();
-    }
-
-    public Player getPlayer(){
+    public Player getPlayer() {
         return map.getPlayer();
     }
 
-    public List<Actor> getActors(){
+    public List<Actor> getActors() {
         List<Actor> allActors = new ArrayList<>();
         for(int x = 0; x < getMapWidth() -1 ; x++){
             for(int y = 0; y < getMapHeight() - 1; y++){
@@ -73,6 +69,7 @@ public class GameLogic {
                 currentCell.ifPresent(allActors::add);
             }
         }
+
         return allActors;
     }
 }

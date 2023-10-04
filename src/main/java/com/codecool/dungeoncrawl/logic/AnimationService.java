@@ -32,6 +32,7 @@ public class AnimationService {
 
         timeline.playFromStart();
     }
+
     public void playSlashAnimation(Cell cell){
         CellType originalCellType = cell.getType();
 

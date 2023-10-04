@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.data.items;
 
 import com.codecool.dungeoncrawl.data.Cell;
-
-import java.util.Optional;
+import com.codecool.dungeoncrawl.data.CellType;
+import com.codecool.dungeoncrawl.data.actors.Player;
 
 public class Key extends Item {
   public Key(Cell cell) {
@@ -15,7 +15,9 @@ public class Key extends Item {
   }
 
   @Override
-  public <T> void interactWithPlayer(Optional<T> cell) {
-    System.out.println(cell);
+  public void interactWithPlayer(Player player) {
+    player.addToInventory(this);
+    cell.setItem(null);
+    cell.setType(CellType.FLOOR);
   }
 }
