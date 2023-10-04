@@ -10,6 +10,6 @@ public class D implements KeyHandler {
     @Override
     public void perform(KeyEvent event, GameMap map) {
         if (code.equals(event.getCode()))
-            map.getPlayer().attack(0, 1);
+            map.getPlayer().attack(1, 0);
     }
 }
