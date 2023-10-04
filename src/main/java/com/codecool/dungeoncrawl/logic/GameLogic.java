@@ -2,8 +2,14 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.GameMap;
+import com.codecool.dungeoncrawl.data.actors.Actor;
+import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.data.items.Item;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class GameLogic {
     private GameMap map;
@@ -49,5 +55,19 @@ public class GameLogic {
 
     public void addToPlayerInventory(Item item) {
         map.getPlayer().addToInventory(item);
+    }
+    public Player getPlayer(){
+        return map.getPlayer();
+    }
+
+    public List<Actor> getActors(){
+        List<Actor> allActors = new ArrayList<>();
+        for(int x = 0; x < getMapWidth() -1 ; x++){
+            for(int y = 0; y < getMapHeight() - 1; y++){
+                Optional<Actor> currentCell = Optional.ofNullable(getCell(x, y).getActor());
+                currentCell.ifPresent(allActors::add);
+            }
+        }
+        return allActors;
     }
 }

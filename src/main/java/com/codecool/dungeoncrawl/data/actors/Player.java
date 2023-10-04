@@ -4,12 +4,20 @@ import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.data.items.Item;
+import com.codecool.dungeoncrawl.logic.AnimationService;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 import java.util.Objects;
 
 public class Player extends Actor {
     private static final int MAX_HEALTH = 15;
     private final Inventory inventory;
+
 
     public Player(Cell cell) {
         super(cell, calculateStartHealth());
@@ -65,4 +73,18 @@ public class Player extends Actor {
     private boolean checkIfNextCellHasGivenItem(Cell nextCell, String nameOfItem) {
         return nextCell.hasItem() && Objects.equals(nextCell.getItem().getTileName(), nameOfItem);
     }
+
+    public void attack(int x, int y){
+        Cell cellToAttack = cell.getNeighbor(x,y);
+        animationService.playSlashAnimation(cellToAttack);
+
+        if(cellToAttack.hasActor()){
+            Actor enemy = cellToAttack.getActor();
+            int enemyHealth = enemy.getCurrentHealth();
+
+            enemy.setCurrentHealth(enemyHealth - 1);
+            System.out.println(enemy.getCurrentHealth());
+        }
+    }
+
 }
