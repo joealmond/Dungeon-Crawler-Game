@@ -12,7 +12,8 @@ public enum CellType {
     CORPSE("corpse",true),
     GRAVE("grave",true),
     HURT_ACTOR("hurt-actor",false),
-    HEALTH_POTION("health-potion", true);
+    HEALTH_POTION("health-potion", true),
+    TORCH("torch", true);
 
     private final String tileName;
     private final boolean isPassable;

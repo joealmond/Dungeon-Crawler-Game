@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.ui;
 
 import com.codecool.dungeoncrawl.data.Cell;
+import com.codecool.dungeoncrawl.data.items.Torch;
 import com.codecool.dungeoncrawl.logic.AnimationService;
 import com.codecool.dungeoncrawl.logic.GameLogic;
 import com.codecool.dungeoncrawl.ui.elements.MainStage;
@@ -12,9 +13,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT;
+import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT_WITH_TORCH;
 
 public class UI {
     private Canvas canvas;
@@ -54,9 +58,14 @@ public class UI {
 
         int playerX = logic.getPlayerX();
         int playerY = logic.getPlayerY();
+        int playerLineOfSight = LINE_OF_SIGHT;
 
-        for (int x = Math.max(playerX - LINE_OF_SIGHT, 0); x < Math.min(playerX + LINE_OF_SIGHT, logic.getMapWidth()); x++) {
-            for (int y = Math.max(playerY - LINE_OF_SIGHT, 0); y < Math.min(playerY + LINE_OF_SIGHT, logic.getMapHeight()); y++) {
+        if (logic.getPlayerInventory().hasTorch()) {
+            playerLineOfSight = LINE_OF_SIGHT_WITH_TORCH;
+        }
+
+        for (int x = Math.max(playerX - playerLineOfSight, 0); x < Math.min(playerX + playerLineOfSight, logic.getMapWidth()); x++) {
+            for (int y = Math.max(playerY - playerLineOfSight, 0); y < Math.min(playerY + playerLineOfSight, logic.getMapHeight()); y++) {
                 Cell cell = logic.getCell(x, y);
 
                 if (cell.getActor() != null) {
