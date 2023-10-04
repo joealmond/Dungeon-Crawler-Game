@@ -58,7 +58,7 @@ public class Player extends Actor {
         Cell cellToAttack = cell.getNeighbor(x, y);
         animationService.playSlashAnimation(cellToAttack);
 
-        if(cellToAttack.hasActor()){
+        if (cellToAttack.hasActor()) {
             Actor enemy = cellToAttack.getActor();
             int enemyHealth = enemy.getCurrentHealth();
 
