@@ -129,10 +129,8 @@ public class MapGenerator {
         List<List<Integer>> resultCoordinates = possibleCells
                 .stream()
                 .filter(coordinate -> {
-                    if(x < 0 || y < 0) return false;
                     if((x + coordinate.get(0)) >= (MAP_WIDTH - 1)|| (x + coordinate.get(0)) < 0) return false;
                     if((y + coordinate.get(1)) >= (MAP_HEIGHT - 1) || (y + coordinate.get(1)) < 0) return false;
-                    System.out.printf("X -> %d | Y -> %d %n",x,y);
                     char inspectedCell = mapData[y + coordinate.get(1)][x + coordinate.get(0)];
                     return inspectedCell == FLOOR_CHAR;
                 })
