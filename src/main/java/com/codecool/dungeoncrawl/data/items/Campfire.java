@@ -11,4 +11,9 @@ public class Campfire extends Item {
   public String getTileName() {
     return "campfire";
   }
+
+  @Override
+  public <T> void interactWithPlayer(T health) {
+    System.out.println("bal");
+  }
 }
