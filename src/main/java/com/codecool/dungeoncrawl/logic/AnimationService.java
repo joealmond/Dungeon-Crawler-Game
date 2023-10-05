@@ -95,6 +95,7 @@ public class AnimationService {
                 }),
                 new KeyFrame(Duration.seconds(0.1), event -> {
                     if(actorOnCell.getCurrentHealth() > 0){
+                        cell.setType(CellType.FLOOR);
                         cell.setActor(actorOnCell);
                         ui.refresh();
                     } else {
