@@ -4,7 +4,6 @@ import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.Drawable;
 import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.logic.AnimationService;
-import com.codecool.dungeoncrawl.logic.Game;
 import com.codecool.dungeoncrawl.logic.GameLogic;
 
 public abstract class Item implements Drawable {
@@ -36,7 +35,8 @@ public abstract class Item implements Drawable {
   }
 
   public abstract void interactWithPlayer(Player player);
-  public void setAnimationService(AnimationService animationService){
+
+  public void setAnimationService(AnimationService animationService) {
     this.animationService = animationService;
   }
 }

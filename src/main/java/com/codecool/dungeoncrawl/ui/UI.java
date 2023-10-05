@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.data.items.Item;
 import com.codecool.dungeoncrawl.logic.GameLogic;
 import com.codecool.dungeoncrawl.ui.elements.MainStage;
 import com.codecool.dungeoncrawl.ui.keyeventhandler.KeyHandler;
+
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -97,6 +98,7 @@ public class UI {
             names.addAll(list);
         }
         return names;
+
     }
 
     private List<String> getItemNames() {

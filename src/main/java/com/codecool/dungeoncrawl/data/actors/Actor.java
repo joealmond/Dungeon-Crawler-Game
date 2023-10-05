@@ -31,10 +31,15 @@ public abstract class Actor implements Drawable {
     }
 
     public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
-        animationService.playActorGetHurtAnimation(cell);
+        if (this.currentHealth > currentHealth) {
+            animationService.playActorGetHurtAnimation(cell);
+        } else {
+            animationService.playActorHealAnimation(cell);
+        }
 
-        if(currentHealth <= 0) {
+        this.currentHealth = currentHealth;
+
+        if (currentHealth <= 0) {
             cell.setActor(null);
             animationService.playDeathAnimation(cell);
         }
@@ -55,5 +60,9 @@ public abstract class Actor implements Drawable {
 
     public void setAnimationService(AnimationService animationService){
         this.animationService =  animationService;
+    }
+
+    public void setDamage(int damage) {
+        this.DAMAGE = damage;
     }
 }

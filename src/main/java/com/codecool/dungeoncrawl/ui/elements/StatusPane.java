@@ -33,11 +33,8 @@ public class StatusPane {
         for (int i = 0; i < labalNames.size() - 1; i+=2) {
             String tileName = labalNames.get(i);
             String tileValue = labalNames.get(i + 1);
-            System.out.println(tileName);
-            System.out.println(tileValue);
             ui.add(new Label(tileName), 0, i);
             ui.add(new Label(tileValue), 1, i);
         }
     }
-
 }

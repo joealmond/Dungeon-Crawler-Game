@@ -34,5 +34,6 @@ public class MainStage {
 
     public void setLabels(List<String> tileNames) {
         this.statusPane.setLabels(tileNames);
+
     }
 }
