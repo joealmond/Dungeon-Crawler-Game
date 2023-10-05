@@ -10,7 +10,7 @@ public class Player extends Actor {
     private final Inventory inventory;
 
     public Player(Cell cell) {
-        super(cell, calculateStartHealth());
+        super(cell, calculateStartHealth(), 1);
         this.inventory = new Inventory();
     }
 
@@ -63,7 +63,7 @@ public class Player extends Actor {
             Actor enemy = cellToAttack.getActor();
             int enemyHealth = enemy.getCurrentHealth();
 
-            enemy.setCurrentHealth(enemyHealth - 1);
+            enemy.setCurrentHealth(enemyHealth - DAMAGE);
         }
 
         if(cellToAttack.getItem() instanceof Weak_Wall){

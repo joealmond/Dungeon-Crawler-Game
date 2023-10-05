@@ -5,14 +5,16 @@ import com.codecool.dungeoncrawl.data.Drawable;
 import com.codecool.dungeoncrawl.logic.AnimationService;
 
 public abstract class Actor implements Drawable {
+    protected int DAMAGE;
     protected Cell cell;
     protected int currentHealth;
     protected AnimationService animationService;
 
-    public Actor(Cell cell, int currentHealth) {
+    public Actor(Cell cell, int currentHealth, int DAMAGE) {
         this.cell = cell;
         this.cell.setActor(this);
         this.currentHealth = currentHealth;
+        this.DAMAGE = DAMAGE;
     }
 
     public abstract void allowMovement(Cell nextCell);
@@ -49,6 +51,7 @@ public abstract class Actor implements Drawable {
     public int getY() {
         return cell.getY();
     }
+    public int getDamage(){return DAMAGE;}
 
     public void setAnimationService(AnimationService animationService){
         this.animationService =  animationService;

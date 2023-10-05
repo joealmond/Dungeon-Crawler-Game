@@ -6,7 +6,7 @@ public class Skeleton extends Actor {
     private static final int MAX_HEALTH = 10;
 
     public Skeleton(Cell cell) {
-        super(cell, calculateStartHealth());
+        super(cell, calculateStartHealth(),1);
     }
 
     public static int calculateStartHealth() {
