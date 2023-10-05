@@ -29,6 +29,8 @@ public class MapGenerator {
     private static final char POTION_CHAR = 'p';
     private static final char CAMPFIRE_CHAR= 'f';
     private static final char SWORD_CHAR = 'o';
+    private static final char FARMER_CHAR = 'm';
+    private static final char CHICKEN_CHAR = 'n';
 
     private static final double WALL_DENSITY = 0.7;
 
@@ -111,6 +113,14 @@ public class MapGenerator {
                         cell.setType(CellType.SWORD);
                         new Sword(cell);
                         break;
+                    case FARMER_CHAR:
+                        cell.setType(CellType.FARMER);
+                        new Farmer(cell);
+                        break;
+                    case CHICKEN_CHAR:
+                        cell.setType(CellType.CHICKEN);
+                        new Chicken(cell);
+                        break;
                     default:
                         throw new RuntimeException("Invalid character in map data: " + mapData[y][x]);
                 }
@@ -123,13 +133,14 @@ public class MapGenerator {
     private static void placeRandomly(char[][] mapData, CellType cellType) {
         Random random = new Random();
         int x, y;
+
         do {
             x = random.nextInt(MAP_WIDTH);
             y = random.nextInt(MAP_HEIGHT);
         } while (mapData[y][x] != FLOOR_CHAR && !isSurroundingValid(mapData,x,y));
 
          switch (cellType) {
-             case DOOR :
+             case DOOR:
                  mapData[y][x] = DOOR_CHAR;
                  break;
              case KEY:
@@ -147,12 +158,19 @@ public class MapGenerator {
              case SWORD:
                  mapData[y][x] = SWORD_CHAR;
                  break;
+             case FARMER:
+                 mapData[y][x] = FARMER_CHAR;
+                 break;
+             case CHICKEN:
+                 mapData[y][x] = CHICKEN_CHAR;
+                 break;
         }
 
     }
     private static void placeSkeletonRandomly(char[][] mapData) {
         Random random = new Random();
         int x, y;
+
         do {
             x = random.nextInt(MAP_WIDTH - 1);
             y = random.nextInt(MAP_HEIGHT - 1);
@@ -160,31 +178,34 @@ public class MapGenerator {
 
         mapData[y][x] = 's';
     }
-    private static boolean isSurroundingValid(char[][] mapData,int x, int y){
+
+    private static boolean isSurroundingValid(char[][] mapData,int x, int y) {
         List<List<Integer>> possibleCells = List.of(
-                List.of(0,1),
-                List.of(1,0),
-                List.of(0,-1),
-                List.of(-1,0)
+            List.of(0,1),
+            List.of(1,0),
+            List.of(0,-1),
+            List.of(-1,0)
         );
 
         AtomicBoolean isAtEdgeOfMap = new AtomicBoolean(false);
 
         List<List<Integer>> resultCoordinates = possibleCells
-                .stream()
-                .filter(coordinate -> {
-                    if((x + coordinate.get(0)) >= (MAP_WIDTH - 1)|| (x + coordinate.get(0)) < 0) {
-                        isAtEdgeOfMap.set(true);
-                        return false;
-                    }
-                    if((y + coordinate.get(1)) >= (MAP_HEIGHT - 1) || (y + coordinate.get(1)) < 0) {
-                        isAtEdgeOfMap.set(true);
-                        return false;
-                    }
-                    char inspectedCell = mapData[y + coordinate.get(1)][x + coordinate.get(0)];
-                    return inspectedCell == FLOOR_CHAR;
-                })
-                .collect(Collectors.toList());
+            .stream()
+            .filter(coordinate -> {
+                if ((x + coordinate.get(0)) >= (MAP_WIDTH - 1)|| (x + coordinate.get(0)) < 0) {
+                    isAtEdgeOfMap.set(true);
+                    return false;
+                }
+
+                if ((y + coordinate.get(1)) >= (MAP_HEIGHT - 1) || (y + coordinate.get(1)) < 0) {
+                    isAtEdgeOfMap.set(true);
+                    return false;
+                }
+
+                char inspectedCell = mapData[y + coordinate.get(1)][x + coordinate.get(0)];
+                return inspectedCell == FLOOR_CHAR;
+            })
+            .collect(Collectors.toList());
 
         return !resultCoordinates.isEmpty() && !isAtEdgeOfMap.get();
     }

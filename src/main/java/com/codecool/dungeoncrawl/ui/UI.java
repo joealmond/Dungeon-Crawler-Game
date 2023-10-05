@@ -79,10 +79,10 @@ public class UI {
 
         mainStage.setLabels(getLabelNames(List.of(
                 getBaseNames(List.of(
-                        "Health: " , logic.getPlayerHealth(),
-                        "Active Weapon: ", logic.getPlayerWeapon(),
-                        "Item Inventory: " , " "
-                )),getItemNames())));
+                    "Health: " , logic.getPlayerHealth(),
+                    "Active Weapon: ", logic.getPlayerWeapon(),
+                    "Item Inventory: " , " "
+                )), getItemNames())));
     }
 
     private List<String> getLabelNames(List<List<String>> lists) {

@@ -29,9 +29,6 @@ public class Tiles {
         tileMap.put("player", new Tile(27, 0));
         tileMap.put("skeleton", new Tile(29, 6));
         tileMap.put("sword", new Tile(2,28));
-        tileMap.put("watering-can", new Tile(14,25));
-        tileMap.put("river-straight", new Tile(8,4));
-        tileMap.put("river-turn", new Tile(9,4));
         tileMap.put("fire", new Tile(15,11));
         tileMap.put("campfire", new Tile(14,10));
         tileMap.put("door", new Tile(9,11));
@@ -39,7 +36,6 @@ public class Tiles {
         tileMap.put("key", new Tile(16,23));
         tileMap.put("boss", new Tile(30,6));
         tileMap.put("torch", new Tile(10,25));
-        tileMap.put("diamond", new Tile(23,4));
         tileMap.put("slash", new Tile(24,11));
         tileMap.put("health-potion", new Tile(16,30));
         tileMap.put("bread", new Tile(15,27));
@@ -49,6 +45,8 @@ public class Tiles {
         tileMap.put("weak-wall",new Tile(0,13));
         tileMap.put("crumbling-wall",new Tile(16,12));
         tileMap.put("heal-actor",new Tile(28,21));
+        tileMap.put("farmer", new Tile(31, 2));
+        tileMap.put("chicken", new Tile(26, 7));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

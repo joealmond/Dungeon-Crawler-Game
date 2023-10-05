@@ -17,7 +17,9 @@ public enum CellType {
     HEALTH_POTION("health-potion", true),
     TORCH("torch", true),
     SWORD("sword", true),
-    HEAL_ACTOR("heal-actor",false);
+    HEAL_ACTOR("heal-actor",false),
+    FARMER("farmer", false),
+    CHICKEN("chicken", true);
 
     private final String tileName;
     private final boolean isPassable;
