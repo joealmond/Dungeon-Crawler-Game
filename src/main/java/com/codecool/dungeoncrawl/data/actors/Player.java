@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.data.actors;
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.inventory.Inventory;
 import com.codecool.dungeoncrawl.data.items.Item;
+import com.codecool.dungeoncrawl.data.items.Weak_Wall;
 
 public class Player extends Actor {
     private static final int MAX_HEALTH = 15;
@@ -64,5 +65,13 @@ public class Player extends Actor {
 
             enemy.setCurrentHealth(enemyHealth - 1);
         }
+
+        if(cellToAttack.getItem() instanceof Weak_Wall){
+            Weak_Wall wall = (Weak_Wall) cellToAttack.getItem();
+            wall.breakDown();
+        }
+    }
+    public void exhaustedStatus(){
+        System.out.println("Player bumped into wall");
     }
 }

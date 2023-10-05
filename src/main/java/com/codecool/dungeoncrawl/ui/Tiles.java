@@ -46,7 +46,9 @@ public class Tiles {
         tileMap.put("bread", new Tile(15,27));
         tileMap.put("corpse", new Tile(0,15));
         tileMap.put("grave", new Tile(1,14));
-        tileMap.put("hurt-actor", new Tile(13,12));
+        tileMap.put("hurt-actor",new Tile(13,12));
+        tileMap.put("weak-wall",new Tile(0,13));
+        tileMap.put("crumbling-wall",new Tile(16,12));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
