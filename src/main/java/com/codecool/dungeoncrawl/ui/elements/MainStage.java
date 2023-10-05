@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 
+import java.util.List;
+
 public class MainStage {
     private Canvas canvas;
     private Scene scene;
@@ -28,5 +30,9 @@ public class MainStage {
 
     public void setHealthLabelText(String text) {
         this.statusPane.setHealthValue(text);
+    }
+
+    public void setItemLabels(List<String> tileNames) {
+        this.statusPane.setItemLabels(tileNames);
     }
 }

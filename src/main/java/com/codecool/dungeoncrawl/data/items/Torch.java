@@ -4,14 +4,14 @@ import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.actors.Player;
 
-public class Key extends Item {
-  public Key(Cell cell) {
+public class Torch extends Item {
+  public Torch(Cell cell) {
     super(cell, true);
   }
 
   @Override
   public String getTileName() {
-    return "key";
+    return "torch";
   }
 
   @Override

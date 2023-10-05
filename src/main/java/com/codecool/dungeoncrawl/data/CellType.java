@@ -13,7 +13,9 @@ public enum CellType {
     GRAVE("grave",true),
     HURT_ACTOR("hurt-actor",false),
     WEAK_WALL("weak-wall",false),
-    CRUMBLING_WALL("crumbling-wall",false);
+    CRUMBLING_WALL("crumbling-wall",false),
+    HEALTH_POTION("health-potion", true),
+    TORCH("torch", true);
 
     private final String tileName;
     private final boolean isPassable;
