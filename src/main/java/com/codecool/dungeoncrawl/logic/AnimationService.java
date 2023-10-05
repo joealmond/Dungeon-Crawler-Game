@@ -118,6 +118,31 @@ public class AnimationService {
         hurtAnimation.setCycleCount(1);
         hurtAnimation.play();
     }
+    public void playActorHealAnimation(Cell cell) {
+        Actor actorOnCell = cell.getActor();
+
+        Timeline healAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0), event -> {
+                    cell.setActor(null);
+                    cell.setType(CellType.HEAL_ACTOR);
+                    ui.refresh();
+                }),
+                new KeyFrame(Duration.seconds(0.1), event -> {
+
+                    if(actorOnCell.getCurrentHealth() > 0){
+                        cell.setType(CellType.FLOOR);
+                        actorOnCell.getCell().setActor(actorOnCell);
+
+                        ui.refresh();
+                    } else {
+                        playDeathAnimation(cell);
+                    }
+                })
+        );
+
+        healAnimation.setCycleCount(1);
+        healAnimation.play();
+    }
 
     private void moveMonstersActionEvent() {
         List<Actor> monsters = findMonsters();

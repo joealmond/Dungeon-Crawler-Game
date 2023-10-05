@@ -57,6 +57,7 @@ public class MapGenerator {
         placeRandomly(mapData,CellType.TORCH);
         placeRandomly(mapData,CellType.CAMPFIRE);
         placeRandomly(mapData, CellType.HEALTH_POTION);
+        placeRandomly(mapData, CellType.SWORD);
 
         int numberOfSkeletons = random.nextInt(10) + 1;
         for (int i = 0; i < numberOfSkeletons; i++) {

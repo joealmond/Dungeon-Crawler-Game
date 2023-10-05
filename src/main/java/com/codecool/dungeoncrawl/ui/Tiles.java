@@ -48,6 +48,7 @@ public class Tiles {
         tileMap.put("hurt-actor",new Tile(13,12));
         tileMap.put("weak-wall",new Tile(0,13));
         tileMap.put("crumbling-wall",new Tile(16,12));
+        tileMap.put("heal-actor",new Tile(28,21));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
