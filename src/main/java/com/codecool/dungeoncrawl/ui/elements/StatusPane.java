@@ -6,9 +6,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class StatusPane {
-    public static final int RIGHT_PANEL_WIDTH = 200;
+    public static final int RIGHT_PANEL_WIDTH = 400;
     public static final int RIGHT_PANEL_PADDING = 10;
     private GridPane ui;
 
@@ -29,10 +30,10 @@ public class StatusPane {
         return ui;
     }
 
-    public void setLabels(List<String> labalNames) {
-        for (int i = 0; i < labalNames.size() - 1; i+=2) {
-            String tileName = labalNames.get(i);
-            String tileValue = labalNames.get(i + 1);
+    public void setLabels(List<String> labelNames) {
+        for (int i = 0; i < labelNames.size() - 1; i+=2) {
+            String tileName = labelNames.get(i);
+            String tileValue = labelNames.get(i + 1);
             ui.add(new Label(tileName), 0, i);
             ui.add(new Label(tileValue), 1, i);
         }
