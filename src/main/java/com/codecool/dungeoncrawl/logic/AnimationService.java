@@ -22,7 +22,7 @@ public class AnimationService {
     private UI ui;
     private GameLogic logic;
     private Duration movementDuration = Duration.seconds(1);
-    private KeyFrame moveMonsters = new KeyFrame(movementDuration, actionEvent ->moveMonstersActionEvent());
+    private KeyFrame moveMonsters = new KeyFrame(movementDuration, actionEvent -> moveMonstersActionEvent());
 
     public AnimationService(UI ui, GameLogic logic) {
         this.ui = ui;
@@ -68,6 +68,7 @@ public class AnimationService {
         deathAnimation.setCycleCount(1);
         deathAnimation.play();
     }
+
     public void setWallToCrumbling(Cell cell){
         Timeline wallAnimation = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), event -> {
@@ -75,9 +76,11 @@ public class AnimationService {
                     ui.refresh();
                 })
         );
+
         wallAnimation.setCycleCount(1);
         wallAnimation.play();
     }
+
     public void resetTileToFloor(Cell cell) {
         Timeline resetAnimation = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), event -> {
@@ -85,20 +88,22 @@ public class AnimationService {
                     ui.refresh();
                 })
         );
+
         resetAnimation.setCycleCount(1);
         resetAnimation.play();
     }
-    public void playActorGetHurtAnimation(Cell cell){
+
+    public void playActorGetHurtAnimation(Cell cell) {
         Actor actorOnCell = cell.getActor();
 
         Timeline hurtAnimation = new Timeline(
-                new KeyFrame(Duration.seconds(0), event -> {;
+                new KeyFrame(Duration.seconds(0), event -> {
                     cell.setActor(null);
                     cell.setType(CellType.HURT_ACTOR);
                     ui.refresh();
                 }),
                 new KeyFrame(Duration.seconds(0.1), event -> {
-                    if(actorOnCell.getCurrentHealth() > 0){
+                    if (actorOnCell.getCurrentHealth() > 0) {
                         cell.setActor(actorOnCell);
                         ui.refresh();
                     } else {
@@ -106,6 +111,7 @@ public class AnimationService {
                     }
                 })
         );
+
         hurtAnimation.setCycleCount(1);
         hurtAnimation.play();
     }
@@ -127,12 +133,14 @@ public class AnimationService {
         }
     }
 
-    private List<Actor> findMonsters(){
+    private List<Actor> findMonsters() {
         List<Actor> allMonsters = new ArrayList<>();
-        for(int x = 0; x < logic.getMapWidth() -1 ; x++){
-            for(int y = 0; y < logic.getMapHeight() - 1; y++){
+
+        for(int x = 0; x < logic.getMapWidth() - 1 ; x++) {
+            for(int y = 0; y < logic.getMapHeight() - 1; y++) {
                 Optional<Actor> currentCell = Optional.ofNullable(logic.getCell(x, y).getActor());
-                if(currentCell.isPresent() && !(currentCell.get() instanceof Player)){
+
+                if(currentCell.isPresent() && !(currentCell.get() instanceof Player)) {
                     allMonsters.add(currentCell.get());
                 }
             }
@@ -140,7 +148,7 @@ public class AnimationService {
         return allMonsters;
     }
 
-    private List<Integer> findRandomMovementDirection(int x, int y){
+    private List<Integer> findRandomMovementDirection(int x, int y) {
         List<List<Integer>> possibleCells = List.of(
                 List.of(0,0),
                 List.of(0,1),
@@ -150,31 +158,34 @@ public class AnimationService {
                 List.of(-1,0),
                 List.of(-1,-1)
         );
+
         List<List<Integer>> resultCoordinates = possibleCells
-                .stream()
-                .filter(coordinate -> {
-                    Cell inspectedCell = logic.getCell(x, y).getNeighbor(coordinate.get(0), coordinate.get(1));
-                    return isValidCell(inspectedCell.getX(), inspectedCell.getY());
-                })
-                .collect(Collectors.toList());
+            .stream()
+            .filter(coordinate -> {
+                Cell inspectedCell = logic.getCell(x, y).getNeighbor(coordinate.get(0), coordinate.get(1));
+                return isValidCell(inspectedCell.getX(), inspectedCell.getY());
+            })
+            .collect(Collectors.toList());
 
         Collections.shuffle(resultCoordinates);
         return resultCoordinates.get(0) != null ? resultCoordinates.get(0) : List.of(0,0);
     }
 
-    private boolean isPlayerNearby(int detectionRadius, int x, int y){
+    private boolean isPlayerNearby(int detectionRadius, int x, int y) {
         boolean result = false;
-        for(int dx = (x+detectionRadius) * -1; dx < (x + detectionRadius); dx++){
-            for(int dy = (y+detectionRadius) * -1; dy < (y + detectionRadius);dy++){
-                if(isValidCell(x + dx,y + dy)){
-                    if((logic.getCell(x,y).getNeighbor(dx,dy).getActor()) instanceof  Player){
+        for (int dx = (x+detectionRadius) * -1; dx < (x + detectionRadius); dx++) {
+            for (int dy = (y+detectionRadius) * -1; dy < (y + detectionRadius);dy++) {
+                if (isValidCell(x + dx,y + dy)){
+                    if ((logic.getCell(x,y).getNeighbor(dx,dy).getActor()) instanceof  Player) {
                         result = true;
                     }
                 }
             }
         }
+
         return result;
     }
+
     private List<Integer> getDirectionToPlayer(int x, int y){
         Player player = logic.getMap().getPlayer();
         int playerX = player.getX();
@@ -198,11 +209,12 @@ public class AnimationService {
         } else {
             return findRandomMovementDirection(x,y);
         }
-
     }
+
     private boolean isValidCell(int x, int y){
         if(x < 0 || x >= logic.getMapWidth() - 1 ) return false;
         if(y < 0 || y >= logic.getMapHeight() - 1) return false;
+
         Cell inspectedCell = logic.getCell(x,y);
         return Objects.equals(inspectedCell.getTileName(), "floor") || Objects.equals(inspectedCell.getTileName(),"empty");
     }
