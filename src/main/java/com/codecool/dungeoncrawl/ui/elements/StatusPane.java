@@ -43,6 +43,7 @@ public class StatusPane {
     }
 
     public void setItemLabels(List<String> tileNames) {
+        itemLabels.clear();
         int count = 1;
         for (String tileName : tileNames) {
             itemLabels.put(new Label("item " + count + ": "),new Label(tileName));
