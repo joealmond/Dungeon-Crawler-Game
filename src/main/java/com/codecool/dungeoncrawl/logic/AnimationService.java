@@ -103,8 +103,11 @@ public class AnimationService {
                     ui.refresh();
                 }),
                 new KeyFrame(Duration.seconds(0.1), event -> {
-                    if (actorOnCell.getCurrentHealth() > 0) {
-                        cell.setActor(actorOnCell);
+
+                    if(actorOnCell.getCurrentHealth() > 0){
+                        cell.setType(CellType.FLOOR);
+                        actorOnCell.getCell().setActor(actorOnCell);
+
                         ui.refresh();
                     } else {
                         playDeathAnimation(cell);
@@ -120,6 +123,7 @@ public class AnimationService {
         List<Actor> monsters = findMonsters();
 
         for (Actor monster : monsters) {
+            int DAMAGE = monster.getDamage();
             List<Integer> moveToCoordinates;
 
             if (isPlayerNearby(Constants.NPC_DETECTION_RADIUS, monster.getX(), monster.getY())) {
@@ -128,6 +132,7 @@ public class AnimationService {
                 moveToCoordinates = findRandomMovementDirection(monster.getX(), monster.getY());
             }
 
+            attackPlayerIfClose(monster.getX(),monster.getY(), DAMAGE);
             monster.move(moveToCoordinates.get(0), moveToCoordinates.get(1));
             ui.refresh();
         }
@@ -160,12 +165,12 @@ public class AnimationService {
         );
 
         List<List<Integer>> resultCoordinates = possibleCells
-            .stream()
-            .filter(coordinate -> {
-                Cell inspectedCell = logic.getCell(x, y).getNeighbor(coordinate.get(0), coordinate.get(1));
-                return isValidCell(inspectedCell.getX(), inspectedCell.getY());
-            })
-            .collect(Collectors.toList());
+                .stream()
+                .filter(coordinate -> {
+                    Cell inspectedCell = logic.getCell(x, y).getNeighbor(coordinate.get(0), coordinate.get(1));
+                    return isMoveOption(inspectedCell.getX(), inspectedCell.getY());
+                })
+                .collect(Collectors.toList());
 
         Collections.shuffle(resultCoordinates);
         return resultCoordinates.get(0) != null ? resultCoordinates.get(0) : List.of(0,0);
@@ -173,10 +178,11 @@ public class AnimationService {
 
     private boolean isPlayerNearby(int detectionRadius, int x, int y) {
         boolean result = false;
-        for (int dx = (x+detectionRadius) * -1; dx < (x + detectionRadius); dx++) {
-            for (int dy = (y+detectionRadius) * -1; dy < (y + detectionRadius);dy++) {
-                if (isValidCell(x + dx,y + dy)){
-                    if ((logic.getCell(x,y).getNeighbor(dx,dy).getActor()) instanceof  Player) {
+
+        for(int dx = (x+detectionRadius) * -1; dx < (x + detectionRadius); dx++){
+            for(int dy = (y+detectionRadius) * -1; dy < (y + detectionRadius);dy++){
+                if(isMoveOption(x + dx,y + dy)){
+                    if((logic.getCell(x,y).getNeighbor(dx,dy).getActor()) instanceof  Player){
                         result = true;
                     }
                 }
@@ -184,6 +190,22 @@ public class AnimationService {
         }
 
         return result;
+    }
+
+    private void attackPlayerIfClose(int x, int y, int DAMAGE) {
+        int detectionRadius = 1;
+        for (int dx = -detectionRadius; dx <= detectionRadius; dx++) {
+            for (int dy = -detectionRadius; dy <= detectionRadius; dy++) {
+                if (isValidCell(x + dx, y + dy)) {
+                    if (logic.getCell(x + dx, y + dy).getActor() instanceof Player) {
+                        Player player = (Player) logic.getCell(x + dx, y + dy).getActor();
+                        int currentHealth = player.getCurrentHealth();
+
+                        player.setCurrentHealth(currentHealth - DAMAGE);
+                    }
+                }
+            }
+        }
     }
 
     private List<Integer> getDirectionToPlayer(int x, int y){
@@ -204,18 +226,23 @@ public class AnimationService {
         } else if(playerY < y){
             moveY = -1;
         }
-        if(isValidCell(x+moveX,y+moveY)){
+        if(isMoveOption(x+moveX,y+moveY)){
             return List.of(moveX,moveY);
         } else {
             return findRandomMovementDirection(x,y);
         }
     }
 
-    private boolean isValidCell(int x, int y){
+    private boolean isMoveOption(int x, int y) {
         if(x < 0 || x >= logic.getMapWidth() - 1 ) return false;
         if(y < 0 || y >= logic.getMapHeight() - 1) return false;
 
         Cell inspectedCell = logic.getCell(x,y);
         return Objects.equals(inspectedCell.getTileName(), "floor") || Objects.equals(inspectedCell.getTileName(),"empty");
+    }
+  
+    private boolean isValidCell(int x, int y) {
+        if(x < 0 || x >= logic.getMapWidth() - 1 ) return false;
+        return y >= 0 && !(y >= logic.getMapHeight() - 1);
     }
 }
