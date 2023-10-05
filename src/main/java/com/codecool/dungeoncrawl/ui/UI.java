@@ -56,8 +56,9 @@ public class UI {
 
     public void refresh() {
         mainStage.getStatusPane().getUi().getChildren().clear();
-        context.setFill(Color.BLACK);
+        context.setFill(Color.rgb(37, 16, 29));
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
 
         int playerX = logic.getPlayerX();
         int playerY = logic.getPlayerY();
@@ -81,13 +82,10 @@ public class UI {
 
         mainStage.setLabels(getLabelNames(List.of(
             getBaseNames(List.of(
-              "Health: " , logic.getPlayerHealth(),
+              "Health ❤\uFE0F : " , logic.getPlayerHealth(),
               "Active Weapon: ", logic.getPlayerWeapon(),
-              " ", " ",
               "Main Quest: ", "Find the Golden Key to open the door \nand escape the dungeon.",
-              " ", " ",
               "Side Quest: ", "Find the farmer's chicken and \nreturn to him.",
-              " ", " ",
               "Item Inventory: " , ""
             )), getItemNames())
         ));

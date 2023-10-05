@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,10 +39,15 @@ public class StatusPane {
             String tileValue = labalNames.get(i + 1);
             Label name = new Label(tileName);
             Label value = new Label(tileValue);
+            GridPane.setColumnSpan(name, 2);
+            GridPane.setMargin(value, new Insets(0, 0, 0, 15));
+            GridPane.setMargin(name, new Insets(25, 0, 5, 0));
             name.setTextFill(Color.WHITESMOKE);
+            name.setFont(new Font(20));
             value.setTextFill(Color.WHITESMOKE);
+            value.setFont(new Font(20));
             ui.add(name, 0, i);
-            ui.add(value, 1, i);
+            ui.add(value, 1, i+1);
         }
     }
 }
