@@ -33,6 +33,8 @@ public abstract class Actor implements Drawable {
     public void setCurrentHealth(int currentHealth) {
         if (this.currentHealth > currentHealth) {
             animationService.playActorGetHurtAnimation(cell);
+        } else {
+            animationService.playActorHealAnimation(cell);
         }
 
         this.currentHealth = currentHealth;
