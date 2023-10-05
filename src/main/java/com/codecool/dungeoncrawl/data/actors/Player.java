@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.data.items.Weak_Wall;
 
 public class Player extends Actor {
     private static final int MAX_HEALTH = 15;
+    private String activeWeapon = "Cudgel";
     private final Inventory inventory;
 
     public Player(Cell cell) {
@@ -25,6 +26,14 @@ public class Player extends Actor {
 
     public int getMaxHealth() {
         return MAX_HEALTH;
+    }
+
+    public String getActiveWeapon() {
+        return activeWeapon;
+    }
+
+    public void setActiveWeapon(String activeWeapon) {
+        this.activeWeapon = activeWeapon;
     }
 
     public Inventory getInventory() {

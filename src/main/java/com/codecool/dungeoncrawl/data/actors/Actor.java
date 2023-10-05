@@ -53,4 +53,8 @@ public abstract class Actor implements Drawable {
     public void setAnimationService(AnimationService animationService){
         this.animationService =  animationService;
     }
+
+    public void setDamage(int damage) {
+
+    }
 }
