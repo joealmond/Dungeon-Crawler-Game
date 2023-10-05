@@ -61,6 +61,6 @@ public abstract class Actor implements Drawable {
     }
 
     public void setDamage(int damage) {
-
+        this.DAMAGE = damage;
     }
 }
