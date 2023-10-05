@@ -2,12 +2,10 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.actors.Skeleton;
-import com.codecool.dungeoncrawl.data.items.Door;
-import com.codecool.dungeoncrawl.data.items.Key;
+import com.codecool.dungeoncrawl.data.items.*;
 import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.GameMap;
 import com.codecool.dungeoncrawl.data.actors.Player;
-import com.codecool.dungeoncrawl.data.items.Weak_Wall;
 
 import java.util.List;
 import java.util.Random;
@@ -27,6 +25,9 @@ public class MapGenerator {
     private static final char KEY_CHAR = 'k';
     private static final char SKELETON_CHAR = 's';
     private static final char WEAK_WALL_CHAR = 'w';
+    private static final char TORCH_CHAR = 't';
+    private static final char POTION_CHAR = 'p';
+    private static final char CAMPFIRE_CHAR= 'f';
 
     private static final double WALL_DENSITY = 0.7;
 
@@ -52,6 +53,9 @@ public class MapGenerator {
         mapData[PLAYER_START_Y][PLAYER_START_X] = PLAYER_CHAR;
         placeRandomly(mapData, CellType.DOOR);
         placeRandomly(mapData, CellType.KEY);
+        placeRandomly(mapData,CellType.TORCH);
+        placeRandomly(mapData,CellType.CAMPFIRE);
+        placeRandomly(mapData, CellType.HEALTH_POTION);
 
         int numberOfSkeletons = random.nextInt(10) + 1;
         for (int i = 0; i < numberOfSkeletons; i++) {
@@ -89,6 +93,18 @@ public class MapGenerator {
                         cell.setType(CellType.WEAK_WALL);
                         new Weak_Wall(cell);
                         break;
+                    case POTION_CHAR:
+                        cell.setType(CellType.HEALTH_POTION);
+                        new HealthPotion(cell);
+                        break;
+                    case CAMPFIRE_CHAR:
+                        cell.setType(CellType.CAMPFIRE);
+                        new Campfire(cell);
+                        break;
+                    case TORCH_CHAR:
+                        cell.setType(CellType.TORCH);
+                        new Torch(cell);
+                        break;
                     default:
                         throw new RuntimeException("Invalid character in map data: " + mapData[y][x]);
                 }
@@ -106,7 +122,24 @@ public class MapGenerator {
             y = random.nextInt(MAP_HEIGHT);
         } while (mapData[y][x] != FLOOR_CHAR && !isSurroundingValid(mapData,x,y));
 
-        mapData[y][x] = (cellType == CellType.DOOR) ? 'd' : ((cellType == CellType.KEY) ? 'k' : 's');
+         switch (cellType) {
+             case DOOR :
+                 mapData[y][x] = DOOR_CHAR;
+                 break;
+             case KEY:
+                 mapData[y][x] = KEY_CHAR;
+                 break;
+             case TORCH:
+                 mapData[y][x] = TORCH_CHAR;
+                 break;
+             case HEALTH_POTION:
+                 mapData[y][x] = POTION_CHAR;
+                 break;
+             case CAMPFIRE:
+                 mapData[y][x] = CAMPFIRE_CHAR;
+                 break;
+        }
+
     }
     private static void placeSkeletonRandomly(char[][] mapData) {
         Random random = new Random();
