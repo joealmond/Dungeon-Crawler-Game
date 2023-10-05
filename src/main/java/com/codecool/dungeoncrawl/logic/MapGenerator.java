@@ -144,6 +144,9 @@ public class MapGenerator {
              case CAMPFIRE:
                  mapData[y][x] = CAMPFIRE_CHAR;
                  break;
+             case SWORD:
+                 mapData[y][x] = SWORD_CHAR;
+                 break;
         }
 
     }
