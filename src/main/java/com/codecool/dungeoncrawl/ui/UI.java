@@ -14,8 +14,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT;
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT_WITH_TORCH;
@@ -78,11 +80,17 @@ public class UI {
         }
 
         mainStage.setLabels(getLabelNames(List.of(
-                getBaseNames(List.of(
-                    "Health: " , logic.getPlayerHealth(),
-                    "Active Weapon: ", logic.getPlayerWeapon(),
-                    "Item Inventory: " , " "
-                )), getItemNames())));
+            getBaseNames(List.of(
+              "Health: " , logic.getPlayerHealth(),
+              "Active Weapon: ", logic.getPlayerWeapon(),
+              " ", " ",
+              "Main Quest: ", "Find the Golden Key to open the door \nand escape the dungeon.",
+              " ", " ",
+              "Side Quest: ", "Find the farmer's chicken and \nreturn to him.",
+              " ", " ",
+              "Item Inventory: " , ""
+            )), getItemNames())
+        ));
     }
 
     private List<String> getLabelNames(List<List<String>> lists) {
@@ -90,28 +98,37 @@ public class UI {
         for (List<String> list : lists) {
             labelNames.addAll(list);
         }
+
         return labelNames;
     }
 
     private List<String> getBaseNames(List<String> list) {
         List<String> names = new ArrayList<>();
+
         if (!list.isEmpty()) {
             names.addAll(list);
         }
-        return names;
 
+        return names;
     }
 
     private List<String> getItemNames() {
         List<String> tileNames = new ArrayList<>();
+
         if (!logic.getPlayerInventory().getItems().isEmpty()) {
             int count = 1;
+
             for (Item item : logic.getPlayerInventory().getItems()) {
                 tileNames.add("Item " + count + ": ");
-                tileNames.add(item.getTileName());
+                tileNames.add(makeStringLookNice(item.getTileName()));
                 count++;
             }
         }
+
         return tileNames;
+    }
+
+    private String makeStringLookNice(String string) {
+        return Arrays.stream(string.split("-")).map((word) -> word.substring(0, 1).toUpperCase() + word.substring(1)).collect(Collectors.joining(" "));
     }
 }

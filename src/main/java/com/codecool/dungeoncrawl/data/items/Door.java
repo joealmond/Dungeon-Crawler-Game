@@ -3,9 +3,7 @@ package com.codecool.dungeoncrawl.data.items;
 import com.codecool.dungeoncrawl.data.Cell;
 import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.actors.Player;
-import com.codecool.dungeoncrawl.data.inventory.Inventory;
-
-import java.util.Objects;
+import com.codecool.dungeoncrawl.logic.utility.ItemInventoryUtil;
 
 public class Door extends Item {
   public Door(Cell cell) {
@@ -19,7 +17,7 @@ public class Door extends Item {
 
   @Override
   public void interactWithPlayer(Player player) {
-    if (isItemInInventory(player.getInventory())) {
+    if (ItemInventoryUtil.isItemInInventory(player.getInventory(), "key")) {
       cell.getItem().getCell().setType(CellType.OPENED_DOOR);
       logic.generateNewMap();
 
@@ -27,12 +25,5 @@ public class Door extends Item {
       logic.getItems().forEach(item -> item.setAnimationService(animationService));
       logic.getItems().forEach(item -> item.setLogic(logic));
     }
-  }
-
-  private boolean isItemInInventory(Inventory inventory) {
-    return inventory.getItems()
-      .stream()
-      .filter(item -> Objects.equals(item.getTileName(), "key"))
-      .count() == 1;
   }
 }

@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.data.items;
 
 import com.codecool.dungeoncrawl.data.Cell;
-import com.codecool.dungeoncrawl.data.CellType;
 import com.codecool.dungeoncrawl.data.actors.Player;
+import com.codecool.dungeoncrawl.logic.utility.ItemPlayerInteractionUtil;
 
 public class HealthPotion extends Item {
   private static final int AMOUNT_OF_HEALING = 7;
@@ -18,9 +18,7 @@ public class HealthPotion extends Item {
 
   @Override
   public void interactWithPlayer(Player player) {
-    player.addItemToInventory(this);
-    cell.setItem(null);
-    cell.setType(CellType.FLOOR);
+    ItemPlayerInteractionUtil.defaultUpdateAfterItemIsPickedUp(this, player, cell);
   }
 
   public void usePotion(Player player) {
