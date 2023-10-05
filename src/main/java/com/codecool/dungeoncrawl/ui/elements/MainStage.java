@@ -9,6 +9,7 @@ import java.util.List;
 public class MainStage {
     private Canvas canvas;
     private Scene scene;
+
     private StatusPane statusPane;
 
     public MainStage(Canvas canvas) {
@@ -27,16 +28,12 @@ public class MainStage {
     public Scene getScene() {
         return scene;
     }
-
-    public void setHealthLabelText(String text) {
-        this.statusPane.setHealthValue(text);
+    public StatusPane getStatusPane() {
+        return statusPane;
     }
 
-    public void setActiveWeaponText(String text) {
-        this.statusPane.setActiveWeaponValue(text);
-    }
+    public void setLabels(List<String> tileNames) {
+        this.statusPane.setLabels(tileNames);
 
-    public void setItemLabels(List<String> tileNames) {
-        this.statusPane.setItemLabels(tileNames);
     }
 }

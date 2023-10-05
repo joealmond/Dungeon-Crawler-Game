@@ -53,6 +53,7 @@ public class UI {
     }
 
     public void refresh() {
+        mainStage.getStatusPane().getUi().getChildren().clear();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -76,18 +77,40 @@ public class UI {
             }
         }
 
-        mainStage.setHealthLabelText(logic.getPlayerHealth());
-        mainStage.setActiveWeaponText(logic.getPlayerWeapon());
-        mainStage.setItemLabels(getTileNames());
+        mainStage.setLabels(getLabelNames(List.of(
+                getBaseNames(List.of(
+                        "Health: " , logic.getPlayerHealth(),
+                        "Item Inventory: " , " "
+                )),getItemNames())));
     }
 
-    private List<String> getTileNames() {
+    private List<String> getLabelNames(List<List<String>> lists) {
+        List<String> labelNames = new ArrayList<>();
+        for (List<String> list : lists) {
+            labelNames.addAll(list);
+        }
+        return labelNames;
+    }
+
+    private List<String> getBaseNames(List<String> list) {
+        List<String> names = new ArrayList<>();
+        if (!list.isEmpty()) {
+            names.addAll(list);
+        }
+        return names;
+
+    }
+
+    private List<String> getItemNames() {
         List<String> tileNames = new ArrayList<>();
         if (!logic.getPlayerInventory().getItems().isEmpty()) {
+            int count = 1;
             for (Item item : logic.getPlayerInventory().getItems()) {
+                tileNames.add("Item " + count + ": ");
                 tileNames.add(item.getTileName());
+                count++;
             }
         }
-        return new ArrayList<>(tileNames);
+        return tileNames;
     }
 }
