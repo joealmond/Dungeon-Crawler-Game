@@ -1,12 +1,7 @@
 package com.codecool.dungeoncrawl.ui;
 
 import com.codecool.dungeoncrawl.data.Cell;
-
 import com.codecool.dungeoncrawl.data.items.Item;
-
-import com.codecool.dungeoncrawl.data.items.Torch;
-import com.codecool.dungeoncrawl.logic.AnimationService;
-
 import com.codecool.dungeoncrawl.logic.GameLogic;
 import com.codecool.dungeoncrawl.ui.elements.MainStage;
 import com.codecool.dungeoncrawl.ui.keyeventhandler.KeyHandler;
@@ -17,14 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Objects;
-
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT;
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT_WITH_TORCH;
@@ -62,6 +52,7 @@ public class UI {
     }
 
     public void refresh() {
+        mainStage.getStatusPane().getUi().getChildren().clear();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -85,17 +76,39 @@ public class UI {
             }
         }
 
-        mainStage.setHealthLabelText(logic.getPlayerHealth());
-        mainStage.setItemLabels(getTileNames());
+        mainStage.setLabels(getLabelNames(List.of(
+                getBaseNames(List.of(
+                        "Health: " , logic.getPlayerHealth(),
+                        "Item Inventory: " , " "
+                )),getItemNames())));
     }
 
-    private List<String> getTileNames() {
+    private List<String> getLabelNames(List<List<String>> lists) {
+        List<String> labelNames = new ArrayList<>();
+        for (List<String> list : lists) {
+            labelNames.addAll(list);
+        }
+        return labelNames;
+    }
+
+    private List<String> getBaseNames(List<String> list) {
+        List<String> names = new ArrayList<>();
+        if (!list.isEmpty()) {
+            names.addAll(list);
+        }
+        return names;
+    }
+
+    private List<String> getItemNames() {
         List<String> tileNames = new ArrayList<>();
         if (!logic.getPlayerInventory().getItems().isEmpty()) {
+            int count = 1;
             for (Item item : logic.getPlayerInventory().getItems()) {
+                tileNames.add("Item " + count + ": ");
                 tileNames.add(item.getTileName());
+                count++;
             }
         }
-        return new ArrayList<>(tileNames);
+        return tileNames;
     }
 }
