@@ -74,9 +74,9 @@ public class GameLogic {
             }
         }
 
-        System.out.println("Actor count -> " + allActors.size());
         return allActors;
     }
+
     public List<Item> getItems() {
         List<Item> allItems = new ArrayList<>();
         for(int x = 0; x < getMapWidth() -1 ; x++){
@@ -89,6 +89,7 @@ public class GameLogic {
 
         return allItems;
     }
+
     public void generateNewMap(){
         this.map = MapGenerator.generateRandomMap();
     }

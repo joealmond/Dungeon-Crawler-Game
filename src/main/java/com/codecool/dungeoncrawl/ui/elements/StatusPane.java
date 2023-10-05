@@ -7,9 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class StatusPane {
-    public static final int RIGHT_PANEL_WIDTH = 200;
+    public static final int RIGHT_PANEL_WIDTH = 400;
     public static final int RIGHT_PANEL_PADDING = 10;
     private GridPane ui;
 

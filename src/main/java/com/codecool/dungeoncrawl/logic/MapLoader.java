@@ -7,8 +7,10 @@ import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.data.actors.Skeleton;
 import com.codecool.dungeoncrawl.data.items.Campfire;
 import com.codecool.dungeoncrawl.data.items.Door;
+import com.codecool.dungeoncrawl.data.items.Chicken;
 import com.codecool.dungeoncrawl.data.items.HealthPotion;
 import com.codecool.dungeoncrawl.data.items.Key;
+import com.codecool.dungeoncrawl.data.items.Farmer;
 import com.codecool.dungeoncrawl.data.items.Sword;
 import com.codecool.dungeoncrawl.data.items.Torch;
 
@@ -72,6 +74,14 @@ public class MapLoader {
                         case 'o':
                             cell.setType(CellType.SWORD);
                             new Sword(cell);
+                            break;
+                        case 'm':
+                            cell.setType(CellType.FARMER);
+                            new Farmer(cell);
+                            break;
+                        case 'n':
+                            cell.setType(CellType.CHICKEN);
+                            new Chicken(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
