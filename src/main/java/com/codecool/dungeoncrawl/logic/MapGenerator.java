@@ -9,9 +9,9 @@ import com.codecool.dungeoncrawl.data.GameMap;
 import com.codecool.dungeoncrawl.data.actors.Player;
 import com.codecool.dungeoncrawl.data.items.Weak_Wall;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class MapGenerator {
@@ -126,16 +126,24 @@ public class MapGenerator {
                 List.of(-1,0)
         );
 
+        AtomicBoolean isAtEdgeOfMap = new AtomicBoolean(false);
+
         List<List<Integer>> resultCoordinates = possibleCells
                 .stream()
                 .filter(coordinate -> {
-                    if((x + coordinate.get(0)) >= (MAP_WIDTH - 1)|| (x + coordinate.get(0)) < 0) return false;
-                    if((y + coordinate.get(1)) >= (MAP_HEIGHT - 1) || (y + coordinate.get(1)) < 0) return false;
+                    if((x + coordinate.get(0)) >= (MAP_WIDTH - 1)|| (x + coordinate.get(0)) < 0) {
+                        isAtEdgeOfMap.set(true);
+                        return false;
+                    }
+                    if((y + coordinate.get(1)) >= (MAP_HEIGHT - 1) || (y + coordinate.get(1)) < 0) {
+                        isAtEdgeOfMap.set(true);
+                        return false;
+                    }
                     char inspectedCell = mapData[y + coordinate.get(1)][x + coordinate.get(0)];
                     return inspectedCell == FLOOR_CHAR;
                 })
                 .collect(Collectors.toList());
 
-        return !resultCoordinates.isEmpty();
+        return !resultCoordinates.isEmpty() && !isAtEdgeOfMap.get();
     }
 }

@@ -21,6 +21,7 @@ public class Weak_Wall extends Item{
 
         }
         public void breakDown(){
+        System.out.printf("Wall at position -> X: %d Y: %d",this.cell.getX(),this.cell.getY());
             DURABILITY -= 1;
             if(DURABILITY == 1)animationService.setWallToCrumbling(cell);
             if(DURABILITY == 0){

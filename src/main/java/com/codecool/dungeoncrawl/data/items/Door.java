@@ -22,6 +22,8 @@ public class Door extends Item {
     if (isItemInInventory(player.getInventory())) {
       cell.getItem().getCell().setType(CellType.OPENED_DOOR);
       logic.generateNewMap();
+      System.out.println("MAP HEIGHT -> "  + logic.getMapWidth());
+      System.out.println("MAP Height -> "  + logic.getMapHeight());
       logic.getActors().forEach(actor -> actor.setAnimationService(animationService));
       logic.getItems().forEach(item -> item.setAnimationService(animationService));
       logic.getItems().forEach(item -> item.setLogic(logic));
