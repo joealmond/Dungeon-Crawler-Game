@@ -2,8 +2,9 @@ package com.codecool.dungeoncrawl.ui.elements;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.*;
 
@@ -19,6 +20,7 @@ public class StatusPane {
     public BorderPane build() {
         ui.setPrefWidth(RIGHT_PANEL_WIDTH);
         ui.setPadding(new Insets(RIGHT_PANEL_PADDING));
+        ui.setBackground(new Background(new BackgroundFill(Color.rgb(67, 46, 59), new CornerRadii(0), new Insets(0))));
 
         BorderPane borderPane = new BorderPane();
         borderPane.setRight(ui);
@@ -33,8 +35,12 @@ public class StatusPane {
         for (int i = 0; i < labalNames.size() - 1; i+=2) {
             String tileName = labalNames.get(i);
             String tileValue = labalNames.get(i + 1);
-            ui.add(new Label(tileName), 0, i);
-            ui.add(new Label(tileValue), 1, i);
+            Label name = new Label(tileName);
+            Label value = new Label(tileValue);
+            name.setTextFill(Color.WHITESMOKE);
+            value.setTextFill(Color.WHITESMOKE);
+            ui.add(name, 0, i);
+            ui.add(value, 1, i);
         }
     }
 }
