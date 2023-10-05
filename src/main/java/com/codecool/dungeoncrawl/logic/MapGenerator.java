@@ -28,6 +28,7 @@ public class MapGenerator {
     private static final char TORCH_CHAR = 't';
     private static final char POTION_CHAR = 'p';
     private static final char CAMPFIRE_CHAR= 'f';
+    private static final char SWORD_CHAR = 'o';
 
     private static final double WALL_DENSITY = 0.7;
 
@@ -104,6 +105,10 @@ public class MapGenerator {
                     case TORCH_CHAR:
                         cell.setType(CellType.TORCH);
                         new Torch(cell);
+                        break;
+                    case SWORD_CHAR:
+                        cell.setType(CellType.SWORD);
+                        new Sword(cell);
                         break;
                     default:
                         throw new RuntimeException("Invalid character in map data: " + mapData[y][x]);

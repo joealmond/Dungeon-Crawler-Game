@@ -32,6 +32,10 @@ public class MainStage {
         this.statusPane.setHealthValue(text);
     }
 
+    public void setActiveWeaponText(String text) {
+        this.statusPane.setActiveWeaponValue(text);
+    }
+
     public void setItemLabels(List<String> tileNames) {
         this.statusPane.setItemLabels(tileNames);
     }

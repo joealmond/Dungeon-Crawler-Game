@@ -1,15 +1,11 @@
 package com.codecool.dungeoncrawl.ui;
 
 import com.codecool.dungeoncrawl.data.Cell;
-
 import com.codecool.dungeoncrawl.data.items.Item;
-
-import com.codecool.dungeoncrawl.data.items.Torch;
-import com.codecool.dungeoncrawl.logic.AnimationService;
-
 import com.codecool.dungeoncrawl.logic.GameLogic;
 import com.codecool.dungeoncrawl.ui.elements.MainStage;
 import com.codecool.dungeoncrawl.ui.keyeventhandler.KeyHandler;
+
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,14 +13,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Objects;
-
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT;
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT_WITH_TORCH;
@@ -86,6 +77,7 @@ public class UI {
         }
 
         mainStage.setHealthLabelText(logic.getPlayerHealth());
+        mainStage.setActiveWeaponText(logic.getPlayerWeapon());
         mainStage.setItemLabels(getTileNames());
     }
 
