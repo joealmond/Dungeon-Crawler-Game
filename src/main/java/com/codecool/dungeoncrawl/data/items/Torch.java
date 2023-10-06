@@ -17,6 +17,5 @@ public class Torch extends Item {
   @Override
   public void interactWithPlayer(Player player) {
     ItemPlayerInteractionUtil.defaultUpdateAfterItemIsPickedUp(this, player, cell);
-
   }
 }
