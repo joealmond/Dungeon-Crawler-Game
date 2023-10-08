@@ -5,7 +5,6 @@ import com.codecool.dungeoncrawl.data.items.Item;
 import com.codecool.dungeoncrawl.logic.GameLogic;
 import com.codecool.dungeoncrawl.ui.elements.MainStage;
 import com.codecool.dungeoncrawl.ui.keyeventhandler.KeyHandler;
-
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,19 +12,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT;
 import static com.codecool.dungeoncrawl.data.gamesetup.Constants.LINE_OF_SIGHT_WITH_TORCH;
 
 public class UI {
+    int[] playerPosAndLos;
+    List<int[]> palyerHistory;
     private Canvas canvas;
     private GraphicsContext context;
-
     private MainStage mainStage;
     private GameLogic logic;
     private Set<KeyHandler> keyHandlers;
@@ -36,6 +33,9 @@ public class UI {
         this.context = canvas.getGraphicsContext2D();
         this.mainStage = new MainStage(canvas);
         this.keyHandlers = keyHandlers;
+        this.playerPosAndLos = new int[]{logic.getPlayerX(), logic.getPlayerY(), LINE_OF_SIGHT};
+        this.palyerHistory = new ArrayList<>(Collections.singleton(new int[]{logic.getPlayerX(), logic.getPlayerY(), LINE_OF_SIGHT}));
+
     }
 
     public void setUpPain(Stage primaryStage) {
@@ -59,7 +59,6 @@ public class UI {
         context.setFill(Color.rgb(37, 16, 29));
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-
         int playerX = logic.getPlayerX();
         int playerY = logic.getPlayerY();
         int playerLineOfSight = LINE_OF_SIGHT;
@@ -68,26 +67,35 @@ public class UI {
             playerLineOfSight = LINE_OF_SIGHT_WITH_TORCH;
         }
 
-        for (int x = Math.max(playerX - playerLineOfSight, 0); x < Math.min(playerX + playerLineOfSight, logic.getMapWidth()); x++) {
-            for (int y = Math.max(playerY - playerLineOfSight, 0); y < Math.min(playerY + playerLineOfSight, logic.getMapHeight()); y++) {
-                Cell cell = logic.getCell(x, y);
+        int[] playerData = new int[]{playerX, playerY, playerLineOfSight};
 
-                if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
-                } else {
-                    Tiles.drawTile(context, cell, x, y);
+        if (!Arrays.equals(playerData, palyerHistory.get(palyerHistory.size() - 1))) {
+            palyerHistory.add(playerData);
+        }
+
+        for (int[] historyData : palyerHistory) {
+
+            for (int x = Math.max(historyData[0] - historyData[2], 0); x < Math.min(historyData[0] + historyData[2], logic.getMapWidth()); x++) {
+                for (int y = Math.max(historyData[1] - historyData[2], 0); y < Math.min(historyData[1] + historyData[2], logic.getMapHeight()); y++) {
+                    Cell cell = logic.getCell(x, y);
+
+                    if (cell.getActor() != null) {
+                        Tiles.drawTile(context, cell.getActor(), x, y);
+                    } else {
+                        Tiles.drawTile(context, cell, x, y);
+                    }
                 }
             }
         }
 
         mainStage.setLabels(getLabelNames(List.of(
-            getBaseNames(List.of(
-              "Health ❤\uFE0F : " , logic.getPlayerHealth(),
-              "Active Weapon: ", logic.getPlayerWeapon(),
-              "Main Quest: ", "Find the Golden Key to open the door \nand escape the dungeon.",
-              "Side Quest: ", "Find the farmer's chicken and \nreturn to him.",
-              "Item Inventory: " , ""
-            )), getItemNames())
+                getBaseNames(List.of(
+                        "Health ❤\uFE0F : ", logic.getPlayerHealth(),
+                        "Active Weapon: ", logic.getPlayerWeapon(),
+                        "Main Quest: ", "Find the Golden Key to open the door \nand escape the dungeon.",
+                        "Side Quest: ", "Find the farmer's chicken and \nreturn to him.",
+                        "Item Inventory: ", ""
+                )), getItemNames())
         ));
     }
 
