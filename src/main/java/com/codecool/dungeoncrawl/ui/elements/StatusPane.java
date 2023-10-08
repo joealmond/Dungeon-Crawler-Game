@@ -2,17 +2,19 @@ package com.codecool.dungeoncrawl.ui.elements;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class StatusPane {
-    public static final int RIGHT_PANEL_WIDTH = 400;
-    public static final int RIGHT_PANEL_PADDING = 10;
+    public static final int RIGHT_PANEL_WIDTH = 350;
+    public static final int RIGHT_PANEL_PADDING = 5;
     private GridPane ui;
 
     public StatusPane() {

@@ -89,13 +89,13 @@ public class UI {
         }
 
         mainStage.setLabels(getLabelNames(List.of(
-                getBaseNames(List.of(
-                        "Health ❤\uFE0F : ", logic.getPlayerHealth(),
-                        "Active Weapon: ", logic.getPlayerWeapon(),
-                        "Main Quest: ", "Find the Golden Key to open the door \nand escape the dungeon.",
-                        "Side Quest: ", "Find the farmer's chicken and \nreturn to him.",
-                        "Item Inventory: ", ""
-                )), getItemNames())
+            getBaseNames(List.of(
+              "Health ❤\uFE0F : " , logic.getPlayerHealth(),
+              "Active Weapon: ", logic.getPlayerWeapon(),
+              "Main Quest: ", "Find the Golden Key to open the door \nand escape the dungeon.",
+              "Side Quest: ", "Find the farmer's chicken and \nreturn to him.",
+              "Item Inventory: " , ""
+            )), getItemNames())
         ));
     }
 
